@@ -26,6 +26,69 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/Core/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.transport@ed7eca02732f/Runtime/UDPNetworkInterface.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0000053947966094" />
+      <entry key="MS500" value="1.088395960259452" />
+      <entry key="S2" value="1.6587176965466366" />
+      <entry key="S5" value="2.59068262093763" />
+      <entry key="S10" value="3.439788210293716" />
+      <entry key="S30" value="4.370352468909319" />
+      <entry key="S60" value="4.732894156450838" />
+      <entry key="M2" value="5.882227987404904" />
+      <entry key="M5" value="14.910738741389792" />
+      <entry key="M10" value="34.18224664211901" />
+      <entry key="M15" value="50.3180485789411" />
+      <entry key="M30" value="79.087767953194" />
+      <entry key="H1" value="101.70093588790803" />
+      <entry key="H2" value="116.05999045876443" />
+      <entry key="H4" value="124.17725172752168" />
+      <entry key="D1" value="131.47774745694815" />
+      <entry key="W1" value="132.78122858510855" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.2722241289532416E-9" />
+      <entry key="MS500" value="0.016715992540581256" />
+      <entry key="S2" value="0.4822746403145566" />
+      <entry key="S5" value="1.2920596008268035" />
+      <entry key="S10" value="1.9269769473550076" />
+      <entry key="S30" value="2.5757953813628087" />
+      <entry key="S60" value="2.7809380088247577" />
+      <entry key="M2" value="3.025534844475669" />
+      <entry key="M5" value="5.05375279408273" />
+      <entry key="M10" value="9.844641880628417" />
+      <entry key="M15" value="13.91414714448725" />
+      <entry key="M30" value="21.209969097395653" />
+      <entry key="H1" value="26.975607070411648" />
+      <entry key="H2" value="30.65067022599487" />
+      <entry key="H4" value="32.73293707551817" />
+      <entry key="D1" value="34.60856524192315" />
+      <entry key="W1" value="34.94373752171383" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9138360500268927" />
+      <entry key="MS500" value="1.0734585553505618" />
+      <entry key="S2" value="2.030827038556214" />
+      <entry key="S5" value="3.7648741686062737" />
+      <entry key="S10" value="5.276871389117567" />
+      <entry key="S30" value="6.905113437968204" />
+      <entry key="S60" value="7.488954349499459" />
+      <entry key="M2" value="8.871854398239156" />
+      <entry key="M5" value="19.890783997171223" />
+      <entry key="M10" value="43.94596821788636" />
+      <entry key="M15" value="64.1573807333072" />
+      <entry key="M30" value="100.24307891024694" />
+      <entry key="H1" value="128.64270058197928" />
+      <entry key="H2" value="146.69170217449116" />
+      <entry key="H4" value="156.90013717031476" />
+      <entry key="D1" value="166.0845519060788" />
+      <entry key="W1" value="167.72471238706254" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -35,29 +98,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/movement&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "feature/interactables",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.72f1\Editor\Unity.exe" />
@@ -106,6 +170,8 @@
       <workItem from="1780803485061" duration="406000" />
       <workItem from="1780803976856" duration="11066000" />
       <workItem from="1780823869621" duration="6425000" />
+      <workItem from="1780832811582" duration="4000" />
+      <workItem from="1780832916259" duration="3525000" />
     </task>
     <servers />
   </component>
