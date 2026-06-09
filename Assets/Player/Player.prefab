@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  walkSpeed: 5
-  rotationSpeed: 1
+  walkSpeed: 15
+  rotationSpeed: 5
 --- !u!114 &-4893468466604596339
 MonoBehaviour:
   m_ObjectHideFlags: 0

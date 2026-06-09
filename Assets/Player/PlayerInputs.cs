@@ -14,8 +14,8 @@ namespace Player
 
         public static event Pickup OnPickup;
         
-        [Header("movement speed values")] [SerializeField]
-        private float walkSpeed = 2f;
+        [Header("movement speed values")] 
+            [SerializeField] private float walkSpeed = 2f;
 
         [SerializeField] private float rotationSpeed = 5f;
 
@@ -26,13 +26,15 @@ namespace Player
             if (_inputs == null) Debug.LogError("error");
         }
 
-        private void OnEnable()
+        public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
             _inputs.Enable();
         }
 
-        private void OnDisable()
+       public override void OnNetworkDespawn()
         {
+            base.OnNetworkDespawn();
             _inputs.Disable();
         }
 
