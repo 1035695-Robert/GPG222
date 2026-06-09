@@ -1,23 +1,24 @@
 using System;
 using UnityEngine;
 
-namespace Player
-{
+
     public class InteractObject : MonoBehaviour
     {
-        private void OnEnable()
+        private FixedJoint _joint;
+        private Rigidbody _rb;
+        private void Awake()
         {
-            PlayerInputs.OnPickup += HandlePickups;
+            _rb = GetComponent<Rigidbody>();
+            _joint = GetComponent<FixedJoint>();
         }
-
-        private void OnDisable()
+        public void Pickup(GameObject player)
         {
-            PlayerInputs.OnPickup -= HandlePickups;
-        }
-
-        private void HandlePickups()
+            _rb.isKinematic = false;
+            _joint.connectedBody = player.GetComponent<Rigidbody>();
+        }public void Drop(GameObject player)
         {
-            Debug.Log("pickup box");
+            _rb.isKinematic = false;
+            _joint.connectedBody = player.GetComponent<Rigidbody>();
         }
     }
-}
+

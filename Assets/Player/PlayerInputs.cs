@@ -13,8 +13,7 @@ namespace Player
         public delegate void Pickup();
 
         public static event Pickup OnPickup;
-
-
+        
         [Header("movement speed values")] [SerializeField]
         private float walkSpeed = 2f;
 
@@ -47,6 +46,11 @@ namespace Player
             {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 Rotate_Rpc(targetRotation);
+            }
+
+            if (_inputs.Player.Interact.WasPerformedThisFrame())
+            {
+                OnPickup?.Invoke();
             }
         }
 
