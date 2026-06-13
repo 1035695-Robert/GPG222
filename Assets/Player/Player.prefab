@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1514299545424225070}
   - component: {fileID: 6378162120842473831}
   - component: {fileID: 3944160647352553333}
+  - component: {fileID: -6370690590959521252}
   - component: {fileID: 7483156347187138122}
   - component: {fileID: -4893468466604596339}
   - component: {fileID: 736884673510094023}
@@ -186,6 +187,26 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 1
+--- !u!114 &-6370690590959521252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027749859248984794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f5c2c79758b7f4e859d1d78b18d2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  walkSpeed: 5
+  rotationSpeed: 2
+  moveValue: {x: 0, y: 0}
+  pickupLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  maxDistance: 1
 --- !u!114 &7483156347187138122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,8 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  walkSpeed: 15
-  rotationSpeed: 5
 --- !u!114 &-4893468466604596339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,11 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d3e5c12648104388afb02b7437a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  playerTransform: {fileID: 0}
-  maxDistance: 1
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!138 &-6449845199896292209
 FixedJoint:
   m_ObjectHideFlags: 0
