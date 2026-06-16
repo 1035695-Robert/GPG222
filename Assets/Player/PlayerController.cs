@@ -48,7 +48,7 @@ namespace Player
         private void Interaction(InputAction.CallbackContext ctx)
         {
             if (!IsOwner) return;
-            _playerModel.Interact(OwnerClientId);
+            _playerModel.Interact();
         }
     }
 }

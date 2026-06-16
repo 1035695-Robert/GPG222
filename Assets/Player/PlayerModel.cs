@@ -20,13 +20,13 @@ namespace Player
 
         [SerializeField] private LayerMask pickupLayerMask;
 
-        //private FixedJoint _playerPickupJoint;
+        private ConfigurableJoint _playerPickupJoint;
         [SerializeField] private float maxDistance;
 
         public override void OnNetworkSpawn()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            //_playerPickupJoint = GetComponent<FixedJoint>();
+            _playerPickupJoint = GetComponent<ConfigurableJoint>();
         }
 
         private void FixedUpdate()
@@ -53,34 +53,28 @@ namespace Player
         }
 
         private ConfigurableJoint _currentHoldJoint;
-        private Rigidbody _currentHoldRigidbody;
+        public Rigidbody _currentHoldRigidbody;
+        private bool _isHolding;
 
-        public void Interact(ulong clientID)
+        public void Interact()
         {
-            if (_currentHoldJoint == null)
-            {
-                TryPickUpRpc(clientID);
-            }
-            else
-            {
-                DropObject();
-            }
+            if (!_isHolding) TryPickUpRpc();
+            else DropObject();
+
         }
 
         [Rpc(SendTo.Server)]
-        private void TryPickUpRpc(ulong clientID)
+        private void TryPickUpRpc()
         {
-            if (!IsServer) return;
+           
             Ray ray = new Ray(transform.position, transform.forward);
 
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
                 _currentHoldRigidbody = hit.rigidbody;
                 _currentHoldRigidbody.isKinematic = false;
-                if (hit.collider.TryGetComponent<NetworkObject>(out NetworkObject no))
-                {
-                    ClientGrabRpc(no.NetworkObjectId);
-                }
+               _playerPickupJoint.connectedBody = _currentHoldRigidbody;
+               _isHolding = true;
             }
         }
 
@@ -97,13 +91,12 @@ namespace Player
 
         private void DropObject()
         {
-            if (_currentHoldJoint != null)
-            {
+            Debug.Log("Dropping object");
                 _currentHoldRigidbody.isKinematic = true;
-                _currentHoldJoint.connectedBody = null;
+                _playerPickupJoint.connectedBody = null;
                 _currentHoldRigidbody = null;
                 _currentHoldJoint = null;
-            }
+                _isHolding = false;
         }
     }
 }
