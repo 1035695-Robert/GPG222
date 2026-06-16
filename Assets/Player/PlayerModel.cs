@@ -20,28 +20,28 @@ namespace Player
 
         [SerializeField] private LayerMask pickupLayerMask;
 
-        private FixedJoint _playerPickupJoint;
+        private ConfigurableJoint _playerPickupJoint;
         [SerializeField] private float maxDistance;
 
         public override void OnNetworkSpawn()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _playerPickupJoint = GetComponent<FixedJoint>();
+            _playerPickupJoint = GetComponent<ConfigurableJoint>();
         }
 
         private void FixedUpdate()
         {
-            Movement();
-            Rotation();
+            Movement_Rpc();
+            Rotation_Rpc();
         }
-
-        private void Movement()
+       [Rpc(SendTo.ClientsAndHost)]
+        private void Movement_Rpc()
         {
             _directionInput = new Vector3(moveValue.x, 0, moveValue.y);
             _rigidbody.MovePosition(_rigidbody.position + _directionInput * (walkSpeed * Time.deltaTime));
         }
-
-        private void Rotation()
+        [Rpc(SendTo.ClientsAndHost)]
+        private void Rotation_Rpc()
         {
             if (_directionInput != Vector3.zero)
             {
@@ -52,41 +52,55 @@ namespace Player
             }
         }
 
-        //private ConfigurableJoint _currentHoldJoint;
+       
         public Rigidbody currentHoldRigidbody;
         private bool _isHolding;
-
+       
         public void Interact()
         {
-            if (!_isHolding) TryPickUpRpc();
-            else DropObject();
-
+            if (!_isHolding) TryPickUp_Rpc();
+            else DropObject_Rpc();
         }
 
-        [Rpc(SendTo.Server)]
-        private void TryPickUpRpc()
+        
+        private void TryPickUp_Rpc()
         {
-           
             Ray ray = new Ray(transform.position, transform.forward);
-
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
                 currentHoldRigidbody = hit.rigidbody;
                 currentHoldRigidbody.isKinematic = false;
                _playerPickupJoint.connectedBody = currentHoldRigidbody;
+               _playerPickupJoint.xMotion = ConfigurableJointMotion.Locked;
+               _playerPickupJoint.yMotion = ConfigurableJointMotion.Locked;
+               _playerPickupJoint.zMotion = ConfigurableJointMotion.Locked;
+               _playerPickupJoint.angularXMotion = ConfigurableJointMotion.Locked;
+               _playerPickupJoint.angularYMotion = ConfigurableJointMotion.Limited;
+               _playerPickupJoint.angularZMotion = ConfigurableJointMotion.Locked;
+               
                _isHolding = true;
             }
         }
-
        
-
-        private void DropObject()
+      
+        private void DropObject_Rpc()
         {
             Debug.Log("Dropping object");
+            _playerPickupJoint.xMotion = ConfigurableJointMotion.Free;
+            _playerPickupJoint.yMotion = ConfigurableJointMotion.Free;
+            _playerPickupJoint.zMotion = ConfigurableJointMotion.Free;
+            _playerPickupJoint.angularXMotion = ConfigurableJointMotion.Free;
+            _playerPickupJoint.angularYMotion = ConfigurableJointMotion.Free;
+            _playerPickupJoint.angularZMotion = ConfigurableJointMotion.Free;
                 currentHoldRigidbody.isKinematic = true;
                 _playerPickupJoint.connectedBody = null;
                 currentHoldRigidbody = null;
                 _isHolding = false;
+        }
+
+        public void UpdateMoveValue(Vector2 value)
+        {
+           moveValue = value;
         }
     }
 }
