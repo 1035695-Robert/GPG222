@@ -22,8 +22,8 @@ namespace Player
             
             _inputs = new ControlInputs();
             if (_inputs == null) Debug.LogError("error");
-            _inputs.Player.Move.performed += PlayerMove;
-            _inputs.Player.Move.canceled += PlayerMove;
+            _inputs.Player.Move.performed += PlayerMoveRpc;
+            _inputs.Player.Move.canceled += PlayerMoveRpc;
             _inputs.Player.Interact.performed += Interaction;
             _inputs.Enable();
         }
@@ -32,19 +32,20 @@ namespace Player
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            _inputs.Player.Move.performed -= PlayerMove;
-            _inputs.Player.Move.canceled -= PlayerMove;
+            _inputs.Player.Move.performed -= PlayerMoveRpc;
+            _inputs.Player.Move.canceled -= PlayerMoveRpc;
             _inputs.Player.Interact.performed -= Interaction;
             _inputs.Disable();
         }
 
-        void PlayerMove(InputAction.CallbackContext ctx)
+        
+        void PlayerMoveRpc(InputAction.CallbackContext ctx)
         {
+            if (!IsOwner) return;
             _playerModel.moveValue =  ctx.ReadValue<Vector2>();
         }
         
       
-
         private void Interaction(InputAction.CallbackContext ctx)
         {
             if (!IsOwner) return;

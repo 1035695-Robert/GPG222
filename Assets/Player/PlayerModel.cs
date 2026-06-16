@@ -20,13 +20,13 @@ namespace Player
 
         [SerializeField] private LayerMask pickupLayerMask;
 
-        private ConfigurableJoint _playerPickupJoint;
+        private FixedJoint _playerPickupJoint;
         [SerializeField] private float maxDistance;
 
         public override void OnNetworkSpawn()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _playerPickupJoint = GetComponent<ConfigurableJoint>();
+            _playerPickupJoint = GetComponent<FixedJoint>();
         }
 
         private void FixedUpdate()
@@ -52,8 +52,8 @@ namespace Player
             }
         }
 
-        private ConfigurableJoint _currentHoldJoint;
-        public Rigidbody _currentHoldRigidbody;
+        //private ConfigurableJoint _currentHoldJoint;
+        public Rigidbody currentHoldRigidbody;
         private bool _isHolding;
 
         public void Interact()
@@ -71,31 +71,21 @@ namespace Player
 
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
-                _currentHoldRigidbody = hit.rigidbody;
-                _currentHoldRigidbody.isKinematic = false;
-               _playerPickupJoint.connectedBody = _currentHoldRigidbody;
+                currentHoldRigidbody = hit.rigidbody;
+                currentHoldRigidbody.isKinematic = false;
+               _playerPickupJoint.connectedBody = currentHoldRigidbody;
                _isHolding = true;
             }
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void ClientGrabRpc(ulong objectId)
-        {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out NetworkObject net))
-            {
-                ConfigurableJoint joint = net.GetComponent<ConfigurableJoint>();
-                joint.connectedBody = transform.GetComponent<Rigidbody>();
-            }
-             
-        }
+       
 
         private void DropObject()
         {
             Debug.Log("Dropping object");
-                _currentHoldRigidbody.isKinematic = true;
+                currentHoldRigidbody.isKinematic = true;
                 _playerPickupJoint.connectedBody = null;
-                _currentHoldRigidbody = null;
-                _currentHoldJoint = null;
+                currentHoldRigidbody = null;
                 _isHolding = false;
         }
     }
