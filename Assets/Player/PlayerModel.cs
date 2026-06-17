@@ -1,10 +1,11 @@
+using Prefabs;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Player
 {
     //this is for server gameplay side
-    public  class PlayerModel : NetworkBehaviour
+    public class PlayerModel : NetworkBehaviour
     {
         //private Vector3 _directionInput;
 
@@ -15,40 +16,58 @@ namespace Player
         [SerializeField] private Rigidbody playerRigidbody;
         public Vector2 moveValue;
 
-        //public delegate void Pickup();
-        //public static event Pickup OnPickup;
-        [Header("Pickup variables")] [SerializeField]
-        private LayerMask pickupLayerMask;
+        public delegate void Pickup(GameObject hands, GameObject targeted);
+
+        public event Pickup OnPickup;
+
+        public delegate void Drop(GameObject targetObject);
+
+        public event Drop Dropped;
+
+        [Header("hands")] [SerializeField] private GameObject hands;
+        [SerializeField] private LayerMask pickupLayerMask;
 
         [SerializeField] private ConfigurableJoint playerPickupJoint;
         [SerializeField] private float maxDistance;
-        
+        [SerializeField] private HoldableObject holdableObject;
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            SpawnObjectRpc();
+
+            
+        }
+
+        [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
+        public void SpawnObjectRpc()
+        {
+            Dropped?.Invoke(hands);
+            playerPickupJoint.connectedBody = hands.gameObject.GetComponent<Rigidbody>();
+
+        }
         private void Update()
         {
             if (IsOwner)
             {
                 Vector3 directionInput = new Vector3(moveValue.x, 0, moveValue.y).normalized;
 
-                MoveRpc(directionInput);
-                RotationRpc(directionInput);
+                Move(directionInput);
+                Rotation(directionInput);
             }
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void MoveRpc(Vector3 directionInput)
+
+        private void Move(Vector3 directionInput)
         {
-            if (IsOwner)
-            {
-                playerRigidbody.MovePosition(playerRigidbody.position + directionInput * (walkSpeed * Time.deltaTime));
-            }
+            playerRigidbody.MovePosition(playerRigidbody.position + directionInput * (walkSpeed * Time.deltaTime));
         }
 
-        private void RotationRpc(Vector3 directionInput)
+        private void Rotation(Vector3 directionInput)
         {
             if (directionInput != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(directionInput);
+                Quaternion targetRotation = Quaternion.LookRotation(directionInput, Vector3.up);
                 playerRigidbody.rotation = Quaternion.Slerp(
                     transform.rotation, targetRotation,
                     rotationSpeed * Time.deltaTime * 5f);
@@ -59,75 +78,39 @@ namespace Player
         public Rigidbody currentHoldRigidbody;
         private bool _isHolding;
 
-        public void Interact()
+        [Rpc(SendTo.Server)]
+        public void Interact_Rpc()
         {
             if (!_isHolding) TryPickUp();
-            else DropObject_Rpc();
+            else DropObject();
         }
-        
+
         private void TryPickUp()
-        {Debug.Log("TryPickUp");
-            if (IsOwner)
+        {
+            Debug.Log("TryPickUp");
+            Ray ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
-                Ray ray = new Ray(transform.position, transform.forward);
-                if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
-                {
-                    if (hit.collider.TryGetComponent(out NetworkObject networkObject))
-                    {
-                       ServerHoldObject_Rpc(networkObject.NetworkObjectId);
-                    }
-                    //  
-                    //  NetworkObject holdObject = hit.collider.GetComponent<NetworkObject>();
-                    //
-                    //
-                    // _isHolding = true;
-                    //
-                }
+                GameObject targeted = hit.transform.gameObject;
+                holdableObject = targeted.GetComponent<HoldableObject>();
+                holdableObject.PickUp(hands);
+                OnPickup?.Invoke(hands, targeted);
+                
             }
         }
 
-        [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
-        private void ServerHoldObject_Rpc(ulong holdObject)
+        private void DropObject()
         {
-            ClientHoldObject_Rpc(holdObject);
-        }
-
-        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
-        private void ClientHoldObject_Rpc(ulong holdObject)
-        {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(holdObject, out var networkObject))
-            {
-                if (networkObject != null)
-                {
-                    GameObject holdingObject = networkObject.gameObject;
-                    currentHoldRigidbody = holdingObject.GetComponent<Rigidbody>();
-                }
-
-
-            }
-        }
-        // currentHoldRigidbody.isKinematic = false;
-          
-            // playerPickupJoint.xMotion = ConfigurableJointMotion.Locked;
-            // playerPickupJoint.yMotion = ConfigurableJointMotion.Locked;
-            // playerPickupJoint.zMotion = ConfigurableJointMotion.Locked;
-            // playerPickupJoint.angularXMotion = ConfigurableJointMotion.Locked;
-            // playerPickupJoint.angularYMotion = ConfigurableJointMotion.Limited;
-            // playerPickupJoint.angularZMotion = ConfigurableJointMotion.Locked;
-        
-
-        private void DropObject_Rpc()
-        {
+            if (!IsServer) return;
             Debug.Log("Dropping object");
-            // playerPickupJoint.xMotion = ConfigurableJointMotion.Free;
-            // playerPickupJoint.yMotion = ConfigurableJointMotion.Free;
-            // playerPickupJoint.zMotion = ConfigurableJointMotion.Free;
-            // playerPickupJoint.angularXMotion = ConfigurableJointMotion.Free;
-            // playerPickupJoint.angularYMotion = ConfigurableJointMotion.Free;
-            // playerPickupJoint.angularZMotion = ConfigurableJointMotion.Free;
-           // currentHoldRigidbody.isKinematic = true;
-            playerPickupJoint.connectedBody = null;
-           currentHoldRigidbody = null;
+            if (playerRigidbody != null)
+            {
+                playerPickupJoint.connectedBody = null;
+            }
+            
+            Dropped?.Invoke(hands);
+            
+            playerPickupJoint.connectedBody = hands.gameObject.GetComponent<Rigidbody>();
             _isHolding = false;
         }
     }

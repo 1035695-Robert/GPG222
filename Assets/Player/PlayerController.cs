@@ -50,15 +50,15 @@ namespace Player
         private void Interaction(InputAction.CallbackContext obj)
         {
             // Interaction_Rpc();
-            playerModel.Interact();
+            playerModel.Interact_Rpc();
         }
 
 
         // private void Interaction_Rpc()
         // {
-        //   
+        //   s
         // }
-
+        
         public override void OnNetworkDespawn()
         {
             if (!IsOwner) return;
