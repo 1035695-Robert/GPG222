@@ -9,13 +9,10 @@ namespace Prefabs
 
        private void Awake()
         {
-            SetJoints();
+            
         }
 
-       private void SetJoints()
-        {
-            holdingPoints = GetComponents<FixedJoint>();   
-        }
+       
        
         public void PickUp(GameObject hands)
         {
@@ -29,5 +26,6 @@ namespace Prefabs
             }
             
         }
+        
     }
 }

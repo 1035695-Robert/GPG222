@@ -16,36 +16,21 @@ namespace Player
         [SerializeField] private Rigidbody playerRigidbody;
         public Vector2 moveValue;
 
-        public delegate void Pickup(GameObject hands, GameObject targeted);
-
-        public event Pickup OnPickup;
-
-        public delegate void Drop(GameObject targetObject);
-
-        public event Drop Dropped;
+        // public delegate void Pickup(GameObject hands, GameObject targeted);
+        //
+        // public event Pickup OnPickup;
+        //
+        // public delegate void Drop(GameObject targetObject);
+        //
+        // public event Drop Dropped;
 
         [Header("hands")] [SerializeField] private GameObject hands;
         [SerializeField] private LayerMask pickupLayerMask;
 
-        [SerializeField] private ConfigurableJoint playerPickupJoint;
         [SerializeField] private float maxDistance;
         [SerializeField] private HoldableObject holdableObject;
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-            SpawnObjectRpc();
 
-            
-        }
-
-        [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
-        public void SpawnObjectRpc()
-        {
-            Dropped?.Invoke(hands);
-            playerPickupJoint.connectedBody = hands.gameObject.GetComponent<Rigidbody>();
-
-        }
         private void Update()
         {
             if (IsOwner)
@@ -65,6 +50,7 @@ namespace Player
 
         private void Rotation(Vector3 directionInput)
         {
+            if (isHolding) return;
             if (directionInput != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(directionInput, Vector3.up);
@@ -74,14 +60,13 @@ namespace Player
             }
         }
 
+        [SerializeField] private ConfigurableJoint joint;
+        [SerializeField] private bool isHolding;
 
-        public Rigidbody currentHoldRigidbody;
-        private bool _isHolding;
-
-        [Rpc(SendTo.Server)]
+        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
         public void Interact_Rpc()
         {
-            if (!_isHolding) TryPickUp();
+            if (!isHolding) TryPickUp();
             else DropObject();
         }
 
@@ -91,27 +76,67 @@ namespace Player
             Ray ray = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
-                GameObject targeted = hit.transform.gameObject;
-                holdableObject = targeted.GetComponent<HoldableObject>();
-                holdableObject.PickUp(hands);
-                OnPickup?.Invoke(hands, targeted);
-                
+                GameObject target = hit.transform.root.gameObject;
+                SetupJoint(target);
+
+                isHolding = true;
             }
         }
 
+        void SetupJoint(GameObject target)
+        {
+            joint = gameObject.AddComponent<ConfigurableJoint>();
+            joint.connectedBody = target.GetComponent<Rigidbody>();
+            
+            joint.anchor = Vector3.zero;
+            
+            //Vector3 worldTargetAnchor = target.transform.TransformPoint(new Vector3(0f, 0f, 1.5f));
+
+           
+            joint.connectedAnchor = transform.InverseTransformPoint(transform.forward);
+            
+            joint.xMotion = ConfigurableJointMotion.Free;
+            joint.yMotion = ConfigurableJointMotion.Free;
+            joint.zMotion = ConfigurableJointMotion.Free;
+
+            joint.angularXMotion = ConfigurableJointMotion.Locked;
+            joint.angularYMotion = ConfigurableJointMotion.Limited;
+            joint.angularZMotion = ConfigurableJointMotion.Locked;
+
+            JointDrive xDrive = new JointDrive
+            {
+                positionSpring = 1000f,
+                positionDamper = 50f,
+                maximumForce = Mathf.Infinity
+            };
+            joint.xDrive = xDrive;
+
+            JointDrive yDrive = new JointDrive
+            {
+                positionSpring = 1000f,
+                positionDamper = 50f,
+                maximumForce = Mathf.Infinity
+            };
+            joint.yDrive = yDrive;
+
+            JointDrive zDrive = new JointDrive
+            {
+                positionSpring = 1000f,
+                positionDamper = 50f,
+                maximumForce = Mathf.Infinity
+            };
+            joint.zDrive = zDrive;
+
+        }
+
+
         private void DropObject()
         {
-            if (!IsServer) return;
             Debug.Log("Dropping object");
-            if (playerRigidbody != null)
-            {
-                playerPickupJoint.connectedBody = null;
-            }
-            
-            Dropped?.Invoke(hands);
-            
-            playerPickupJoint.connectedBody = hands.gameObject.GetComponent<Rigidbody>();
-            _isHolding = false;
+
+            Destroy(joint);
+
+            isHolding = false;
         }
     }
 }
