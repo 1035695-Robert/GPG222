@@ -1,3 +1,4 @@
+using System;
 using Prefabs;
 using Unity.Netcode;
 using UnityEngine;
@@ -16,27 +17,24 @@ namespace Player
         [SerializeField] private Rigidbody playerRigidbody;
         public Vector2 moveValue;
 
-        // public delegate void Pickup(GameObject hands, GameObject targeted);
-        //
-        // public event Pickup OnPickup;
-        //
-        // public delegate void Drop(GameObject targetObject);
-        //
-        // public event Drop Dropped;
-
-        [Header("hands")] [SerializeField] private GameObject hands;
+        public delegate void Pickup(GameObject targeted, Vector3 targetPoint, NetworkObject networkHands);
+        public delegate void Drop(NetworkObject networkHands);
+        public event Pickup OnPickupEvent;
+        public event Drop OnDroppedEvent;
+        
         [SerializeField] private LayerMask pickupLayerMask;
 
         [SerializeField] private float maxDistance;
         [SerializeField] private HoldableObject holdableObject;
 
-
+        [SerializeField] private GameObject playerHandPrefab;
+        private NetworkObject _networkHands;
         private void Update()
         {
             if (IsOwner)
             {
                 Vector3 directionInput = new Vector3(moveValue.x, 0, moveValue.y).normalized;
-
+                
                 Move(directionInput);
                 Rotation(directionInput);
             }
@@ -58,16 +56,18 @@ namespace Player
                     transform.rotation, targetRotation,
                     rotationSpeed * Time.deltaTime * 5f);
             }
+            else
+                playerRigidbody.angularVelocity = Vector3.zero;
         }
 
         [SerializeField] private ConfigurableJoint joint;
         [SerializeField] private bool isHolding;
 
-        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
+        [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
         public void Interact_Rpc()
         {
             if (!isHolding) TryPickUp();
-            else DropObject();
+            else DropObject_Rpc();
         }
 
         private void TryPickUp()
@@ -77,24 +77,22 @@ namespace Player
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
                 GameObject target = hit.transform.root.gameObject;
-                SetupJoint(target);
-
+                SetupJoint_Rpc();
+                joint.connectedBody = target.GetComponent<Rigidbody>();
+                OnPickupEvent?.Invoke(hit.transform.gameObject, hit.point, _networkHands);
                 isHolding = true;
             }
         }
 
-        void SetupJoint(GameObject target)
+      
+        void SetupJoint_Rpc()
         {
             joint = gameObject.AddComponent<ConfigurableJoint>();
-            joint.connectedBody = target.GetComponent<Rigidbody>();
             
             joint.anchor = Vector3.zero;
             
-            //Vector3 worldTargetAnchor = target.transform.TransformPoint(new Vector3(0f, 0f, 1.5f));
-
-           
             joint.connectedAnchor = transform.InverseTransformPoint(transform.forward);
-            
+
             joint.xMotion = ConfigurableJointMotion.Free;
             joint.yMotion = ConfigurableJointMotion.Free;
             joint.zMotion = ConfigurableJointMotion.Free;
@@ -126,17 +124,32 @@ namespace Player
                 maximumForce = Mathf.Infinity
             };
             joint.zDrive = zDrive;
-
         }
 
 
-        private void DropObject()
+        
+        private void DropObject_Rpc()
         {
             Debug.Log("Dropping object");
-
             Destroy(joint);
-
+            OnDroppedEvent?.Invoke(_networkHands);
             isHolding = false;
+        }
+        [Rpc(SendTo.Server)]
+        public void SpawnHands_Rpc()
+        {
+            GameObject hands = Instantiate(
+                playerHandPrefab,
+                new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.75f),
+                transform.rotation);
+            _networkHands = hands.GetComponent<NetworkObject>();
+            _networkHands.Spawn();
+
+            bool success = _networkHands.TrySetParent(gameObject.transform);
+            if (!success)
+            {
+                Debug.LogError("failed");
+            }
         }
     }
 }
