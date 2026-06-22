@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6355315413054922808}
   - component: {fileID: 3625256988597401740}
   - component: {fileID: 8136473951160959400}
-  - component: {fileID: 1701434564473475950}
+  - component: {fileID: 6831186025416943398}
   m_Layer: 0
   m_Name: View(Body)
   m_TagString: Untagged
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5408449307433062429}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3625256988597401740
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -103,14 +103,14 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   model: {fileID: -8826539354449078511}
   playerHands: {fileID: 4553501321334949915}
---- !u!136 &1701434564473475950
-CapsuleCollider:
+--- !u!65 &6831186025416943398
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5408449307433062429}
-  m_Material: {fileID: 13400000, guid: c3b3c847efafdb547a722d7492ac9b31, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -121,10 +121,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7027749859248984794
 GameObject:
@@ -318,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 894067310298763094, guid: 517157d838350544380af4f433579032, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 894067310298763094, guid: 517157d838350544380af4f433579032, type: 3}
       propertyPath: m_LocalRotation.w

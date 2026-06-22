@@ -37,7 +37,7 @@ namespace Player
         {
             playerHands.transform.SetParent(transform.root);
             transform.root.localPosition -= transform.forward * 0.1f;
-            playerHands.transform.localPosition = new Vector3(0, 0, 0.75f);
+            playerHands.transform.localPosition = new Vector3(0, 0, 1f);
         }
     }
 }
