@@ -23,8 +23,7 @@ namespace Player
             {
                 playerModel = GetComponent<PlayerModel>();
             }
-
-            playerModel.SpawnHands_Rpc();
+            
 
             _inputs = new ControlInputs();
             if (_inputs == null) Debug.LogError("error");

@@ -6,37 +6,38 @@ namespace Player
     public class PlayerView : NetworkBehaviour
     {
         [SerializeField] private PlayerModel model;
-
-        //[SerializeField] private NetworkObject playerHands;
-
+        [SerializeField] private GameObject playerHands;
 
         private void OnEnable()
         {
-            model.OnPickupEvent += GrabObject;
+            model.OnPickupEvent += GrabObject_Rpc;
             model.OnDroppedEvent += DroppedObject;
         }
 
         private void OnDisable()
         {
-            model.OnPickupEvent -= GrabObject;
+            model.OnPickupEvent -= GrabObject_Rpc;
             model.OnDroppedEvent -= DroppedObject;
         }
 
-        void GrabObject(GameObject targetObject, Vector3 targetPoint, NetworkObject playerHands)
+        [Rpc(SendTo.ClientsAndHost)]
+        void GrabObject_Rpc(NetworkObjectReference targetReference, Vector3 targetPoint)
         {
-            Debug.Log("Grab Object");
-            playerHands.TrySetParent(targetObject);
-            playerHands.transform.position = targetPoint + new Vector3(0, 0.5f, 0);
+            if (targetReference.TryGet(out NetworkObject networkObject))
+            {
+                GameObject targetObject = networkObject.gameObject;
+                Debug.Log("Grab Object");
+                playerHands.transform.SetParent(targetObject.transform);
+                playerHands.transform.position = targetPoint + new Vector3(0, 0.25f, 0);
+            }
         }
 
 
-        private void DroppedObject(NetworkObject playerHands)
+        private void DroppedObject()
         {
-           
-
-           bool isPlayer = playerHands.TrySetParent(gameObject);
-           if(!isPlayer)
-              Debug.LogError("No hands"); 
+            playerHands.transform.SetParent(transform.root);
+            transform.root.localPosition -= transform.forward * 0.1f;
+            playerHands.transform.localPosition = new Vector3(0, 0, 0.75f);
         }
     }
 }

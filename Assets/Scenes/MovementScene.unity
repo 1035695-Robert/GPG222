@@ -241,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 2068642551046078611
+    rid: 3017300098579693641
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2068642551046078611
+    - rid: 3017300098579693641
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None
@@ -275,30 +275,6 @@ PrefabInstance:
     - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Name
       value: Shape1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 2023671593327337981, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2023671593327337981, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,42 +315,6 @@ PrefabInstance:
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562766295411564573, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562766295411564573, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2690565217140046915, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066566086446891952, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 3137038014766460119, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Mass
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Constraints
-      value: 84
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9039480364426569904, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
