@@ -1,3 +1,4 @@
+using System;
 using Prefabs;
 using Unity.Netcode;
 using UnityEngine;
@@ -16,32 +17,29 @@ namespace Player
         [SerializeField] private Rigidbody playerRigidbody;
         public Vector2 moveValue;
 
-        // public delegate void Pickup(GameObject hands, GameObject targeted);
-        //
-        // public event Pickup OnPickup;
-        //
-        // public delegate void Drop(GameObject targetObject);
-        //
-        // public event Drop Dropped;
-
-        [Header("hands")] [SerializeField] private GameObject hands;
+        public delegate void Pickup(NetworkObjectReference targeted, Vector3 targetPoint);
+        public event Pickup OnPickupEvent;
+        public event Action OnDroppedEvent;
+        
         [SerializeField] private LayerMask pickupLayerMask;
 
         [SerializeField] private float maxDistance;
         [SerializeField] private HoldableObject holdableObject;
 
-
+        
+        
         private void Update()
         {
             if (IsOwner)
             {
+                
                 Vector3 directionInput = new Vector3(moveValue.x, 0, moveValue.y).normalized;
-
+                
                 Move(directionInput);
                 Rotation(directionInput);
             }
         }
-
+        
 
         private void Move(Vector3 directionInput)
         {
@@ -58,85 +56,94 @@ namespace Player
                     transform.rotation, targetRotation,
                     rotationSpeed * Time.deltaTime * 5f);
             }
+            else
+                playerRigidbody.angularVelocity = Vector3.zero;
         }
 
-        [SerializeField] private ConfigurableJoint joint;
+        [SerializeField] private ConfigurableJoint playerJoint;
         [SerializeField] private bool isHolding;
 
-        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
+        [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
         public void Interact_Rpc()
         {
             if (!isHolding) TryPickUp();
-            else DropObject();
+            else DropObject_Rpc();
         }
 
         private void TryPickUp()
         {
+            if (!IsServer) return;
             Debug.Log("TryPickUp");
             Ray ray = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
             {
-                GameObject target = hit.transform.root.gameObject;
-                SetupJoint(target);
-
+                NetworkObjectReference target = hit.transform.root.gameObject;
+                SetupPlayerJoint_Rpc(target);
+                OnPickupEvent?.Invoke(target, hit.point);
+            }
+        }
+      
+        [Rpc(SendTo.ClientsAndHost)]
+        void SetupPlayerJoint_Rpc(NetworkObjectReference targetRef)
+        {
+            if (targetRef.TryGet(out NetworkObject networkObject))
+            {
                 isHolding = true;
+                GameObject target = networkObject.gameObject;
+
+                playerJoint = gameObject.AddComponent<ConfigurableJoint>();
+                playerJoint.connectedBody = target.GetComponent<Rigidbody>();
+                playerJoint.anchor = Vector3.zero;
+
+                playerJoint.connectedAnchor = transform.InverseTransformPoint(transform.forward); 
+
+                playerJoint.xMotion = ConfigurableJointMotion.Free;
+                playerJoint.yMotion = ConfigurableJointMotion.Free;
+                playerJoint.zMotion = ConfigurableJointMotion.Free;
+
+                playerJoint.angularXMotion = ConfigurableJointMotion.Locked;
+                playerJoint.angularYMotion = ConfigurableJointMotion.Limited;
+                playerJoint.angularZMotion = ConfigurableJointMotion.Locked;
+
+                JointDrive xDrive = new JointDrive
+                {
+                    positionSpring = 1000f,
+                    positionDamper = 50f,
+                    maximumForce = Mathf.Infinity
+                };
+                playerJoint.xDrive = xDrive;
+
+                JointDrive yDrive = new JointDrive
+                {
+                    positionSpring = 1000f,
+                    positionDamper = 50f,
+                    maximumForce = Mathf.Infinity
+                };
+                playerJoint.yDrive = yDrive;
+
+                JointDrive zDrive = new JointDrive
+                {
+                    positionSpring = 1000f,
+                    positionDamper = 50f,
+                    maximumForce = Mathf.Infinity
+                };
+                playerJoint.zDrive = zDrive;
+                
+                playerJoint.enableCollision = true;
             }
         }
 
-        void SetupJoint(GameObject target)
-        {
-            joint = gameObject.AddComponent<ConfigurableJoint>();
-            joint.connectedBody = target.GetComponent<Rigidbody>();
-            
-            joint.anchor = Vector3.zero;
-            
-            //Vector3 worldTargetAnchor = target.transform.TransformPoint(new Vector3(0f, 0f, 1.5f));
-
-           
-            joint.connectedAnchor = transform.InverseTransformPoint(transform.forward);
-            
-            joint.xMotion = ConfigurableJointMotion.Free;
-            joint.yMotion = ConfigurableJointMotion.Free;
-            joint.zMotion = ConfigurableJointMotion.Free;
-
-            joint.angularXMotion = ConfigurableJointMotion.Locked;
-            joint.angularYMotion = ConfigurableJointMotion.Limited;
-            joint.angularZMotion = ConfigurableJointMotion.Locked;
-
-            JointDrive xDrive = new JointDrive
-            {
-                positionSpring = 1000f,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            joint.xDrive = xDrive;
-
-            JointDrive yDrive = new JointDrive
-            {
-                positionSpring = 1000f,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            joint.yDrive = yDrive;
-
-            JointDrive zDrive = new JointDrive
-            {
-                positionSpring = 1000f,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            joint.zDrive = zDrive;
-
-        }
-
-
-        private void DropObject()
+        [Rpc(SendTo.ClientsAndHost)]
+        private void DropObject_Rpc()
         {
             Debug.Log("Dropping object");
-
-            Destroy(joint);
-
+            Destroy(playerJoint);
+            
+            OnDroppedEvent?.Invoke();
             isHolding = false;
         }
+        
+        
+  
     }
 }

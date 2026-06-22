@@ -134,7 +134,7 @@ GameObject:
   m_Layer: 0
   m_Name: 'Network Manager '
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 602164450578661457
+    rid: 1982184673102266452
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 602164450578661457
+    - rid: 1982184673102266452
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None
@@ -276,17 +276,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape1
       objectReference: {fileID: 0}
-    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3100002
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -294,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5900006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -323,30 +315,6 @@ PrefabInstance:
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2690565217140046915, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 3066566086446891952, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Mass
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_Constraints
-      value: 84
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9039480364426569904, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -440,7 +408,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
