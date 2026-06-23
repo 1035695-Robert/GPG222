@@ -878,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 8316676790517760078
+    rid: 8316676792437440588
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -888,7 +888,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 8316676790517760078
+    - rid: 8316676792437440588
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None

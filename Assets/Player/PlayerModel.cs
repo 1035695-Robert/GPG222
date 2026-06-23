@@ -110,7 +110,7 @@ namespace Player
 
                 JointDrive xDrive = new JointDrive
                 {
-                    positionSpring = 1000f,
+                    positionSpring = Mathf.Infinity,
                     positionDamper = 50f,
                     maximumForce = Mathf.Infinity
                 };
@@ -118,7 +118,7 @@ namespace Player
 
                 JointDrive yDrive = new JointDrive
                 {
-                    positionSpring = 1000f,
+                    positionSpring = Mathf.Infinity,
                     positionDamper = 50f,
                     maximumForce = Mathf.Infinity
                 };
@@ -126,7 +126,7 @@ namespace Player
 
                 JointDrive zDrive = new JointDrive
                 {
-                    positionSpring = 1000f,
+                    positionSpring = Mathf.Infinity,
                     positionDamper = 50f,
                     maximumForce = Mathf.Infinity
                 };

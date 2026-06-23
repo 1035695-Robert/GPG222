@@ -10,7 +10,7 @@ namespace Player
        [SerializeField] private PlayerModel model;
        [SerializeField] private NetworkObject player;
        [SerializeField] private Rigidbody handRigidbody;
-
+       
        public void Setup()
        {
            model =transform.root.GetComponent<PlayerModel>();
@@ -22,7 +22,9 @@ namespace Player
        {
            Debug.Log("grab");
            GameObject target = hitInfo.transform.root.gameObject;
+           
            transform.position = hitInfo.point + new Vector3(0, 0.25f, 0);
+           
            handRigidbody.isKinematic = false;
            handGrabJoint = gameObject.AddComponent<FixedJoint>();
            handGrabJoint.connectedBody = target.GetComponent<Rigidbody>();
