@@ -7,14 +7,17 @@ namespace Player
     {
         [SerializeField] private HandsModel model;
         [SerializeField] private NetworkObject player;
-       
+        [SerializeField] private PlayerModel playerModel;
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
             Debug.Log("Spawning hands");
-            player = gameObject.transform.root.GetComponent<NetworkObject>();
-            model.OnSpawn(player);
+            
         }
+
+       
+
+      
 
         public override void OnNetworkDespawn()
         {

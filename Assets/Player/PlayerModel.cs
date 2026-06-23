@@ -21,8 +21,7 @@ namespace Player
         public event Pickup OnPickupEvent;
         public event Action OnDroppedEvent;
 
-        public delegate void HandsEvent(RaycastHit hit);
-        public event HandsEvent OnHandsEvent;
+        public event Action<RaycastHit> OnHandsEvent;
         
         [SerializeField] private LayerMask pickupLayerMask;
 
@@ -87,7 +86,7 @@ namespace Player
             }
         }
       
-        [Rpc(SendTo.ClientsAndHost)]
+        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
         void SetupPlayerJoint_Rpc(NetworkObjectReference targetRef)
         {
             if (targetRef.TryGet(out NetworkObject networkObject))
@@ -136,8 +135,7 @@ namespace Player
                 playerJoint.enableCollision = true;
             }
         }
-
-        [Rpc(SendTo.ClientsAndHost)]
+        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
         private void DropObject_Rpc()
         {
             Debug.Log("Dropping object");

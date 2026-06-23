@@ -9,11 +9,13 @@ namespace Player
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private PlayerModel playerModel;
+        [SerializeField] private HandsModel handsModel;
 
         private ControlInputs _playerInputs;
         private Vector2 _moveValue;
 
         [SerializeField] private GameObject playerHands;
+        
 
         public override void OnNetworkSpawn()
         {
@@ -41,7 +43,9 @@ namespace Player
         {
             NetworkObject networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
             networkHands.SpawnWithOwnership(playerID);
+            handsModel = networkHands.GetComponent<HandsModel>();
             networkHands.TrySetParent(transform,false);
+            handsModel.Setup();
         }
 
         private void PlayerMove(InputAction.CallbackContext ctx)

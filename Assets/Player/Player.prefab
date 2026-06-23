@@ -101,8 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  model: {fileID: -8826539354449078511}
-  playerHands: {fileID: 0}
 --- !u!65 &6831186025416943398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   playerModel: {fileID: -8826539354449078511}
+  handsModel: {fileID: 0}
   playerHands: {fileID: 6218027500330610180, guid: 517157d838350544380af4f433579032, type: 3}
 --- !u!114 &-8826539354449078511
 MonoBehaviour:
@@ -279,7 +278,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027749859248984794}
   serializedVersion: 4
-  m_Mass: 2
+  m_Mass: 80
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
