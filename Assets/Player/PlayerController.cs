@@ -9,10 +9,13 @@ namespace Player
     public class PlayerController : NetworkBehaviour
     {
         [SerializeField] private PlayerModel playerModel;
+        [SerializeField] private HandsModel handsModel;
 
-        private ControlInputs _inputs;
+        private ControlInputs _playerInputs;
         private Vector2 _moveValue;
 
+        [SerializeField] private GameObject playerHands;
+        
 
         public override void OnNetworkSpawn()
         {
@@ -23,16 +26,27 @@ namespace Player
             {
                 playerModel = GetComponent<PlayerModel>();
             }
+
+            ulong playerID = OwnerClientId;
+            HandSpawn_Rpc(playerID);
             
-
-            _inputs = new ControlInputs();
-            if (_inputs == null) Debug.LogError("error");
-            _inputs.Player.Move.performed += PlayerMove;
-            _inputs.Player.Move.canceled += PlayerMove;
-            _inputs.Player.Interact.performed += Interaction;
-            _inputs.Enable();
+            _playerInputs = new ControlInputs();
+            if (_playerInputs == null) Debug.LogError("error");
+            _playerInputs.Player.Move.performed += PlayerMove;
+            _playerInputs.Player.Move.canceled += PlayerMove;
+            _playerInputs.Player.Interact.performed += Interaction;
+            _playerInputs.Enable();
         }
-
+        
+        [Rpc(SendTo.Server)]
+        void HandSpawn_Rpc(ulong playerID)
+        {
+            NetworkObject networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
+            networkHands.SpawnWithOwnership(playerID);
+            handsModel = networkHands.GetComponent<HandsModel>();
+            networkHands.TrySetParent(transform,false);
+            handsModel.Setup();
+        }
 
         private void PlayerMove(InputAction.CallbackContext ctx)
         {
@@ -58,10 +72,10 @@ namespace Player
         {
             if (!IsOwner) return;
             base.OnNetworkDespawn();
-            _inputs.Player.Move.performed -= PlayerMove;
-            _inputs.Player.Move.canceled -= PlayerMove;
-            _inputs.Player.Interact.performed -= Interaction;
-            _inputs.Disable();
+            _playerInputs.Player.Move.performed -= PlayerMove;
+            _playerInputs.Player.Move.canceled -= PlayerMove;
+            _playerInputs.Player.Interact.performed -= Interaction;
+            _playerInputs.Disable();
         }
     }
 }

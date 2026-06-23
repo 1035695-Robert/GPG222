@@ -443,13 +443,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape1
       objectReference: {fileID: 0}
+    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2134507081169057055, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.23
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -457,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.26
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -494,6 +498,22 @@ PrefabInstance:
     - target: {fileID: 2466217687317968162, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690565217140046915, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3066566086446891952, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039480364426569904, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -603,8 +623,8 @@ Transform:
   m_GameObject: {fileID: 737298442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.79}
-  m_LocalScale: {x: 2, y: 1, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 7.4150105}
+  m_LocalScale: {x: 2, y: 1, z: 2.7249901}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -858,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 1982184673102266468
+    rid: 8316676792437440588
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -868,7 +888,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1982184673102266468
+    - rid: 8316676792437440588
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None
