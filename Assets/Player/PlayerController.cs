@@ -13,6 +13,7 @@ namespace Player
         private ControlInputs _inputs;
         private Vector2 _moveValue;
 
+        [SerializeField] private GameObject playerHands;
 
         public override void OnNetworkSpawn()
         {
@@ -23,8 +24,10 @@ namespace Player
             {
                 playerModel = GetComponent<PlayerModel>();
             }
-            
 
+            ulong playerID = OwnerClientId;
+            HandSpawn_Rpc(playerID);
+            
             _inputs = new ControlInputs();
             if (_inputs == null) Debug.LogError("error");
             _inputs.Player.Move.performed += PlayerMove;
@@ -32,7 +35,13 @@ namespace Player
             _inputs.Player.Interact.performed += Interaction;
             _inputs.Enable();
         }
-
+        
+        [Rpc(SendTo.Server)]
+        void HandSpawn_Rpc(ulong playerID)
+        {
+            NetworkObject networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
+            networkHands.SpawnWithOwnership(playerID);
+        }
 
         private void PlayerMove(InputAction.CallbackContext ctx)
         {
