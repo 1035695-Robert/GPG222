@@ -20,6 +20,9 @@ namespace Player
         public delegate void Pickup(NetworkObjectReference targeted, Vector3 targetPoint);
         public event Pickup OnPickupEvent;
         public event Action OnDroppedEvent;
+
+        public delegate void HandsEvent(RaycastHit hit);
+        public event HandsEvent OnHandsEvent;
         
         [SerializeField] private LayerMask pickupLayerMask;
 
@@ -80,6 +83,7 @@ namespace Player
                 NetworkObjectReference target = hit.transform.root.gameObject;
                 SetupPlayerJoint_Rpc(target);
                 OnPickupEvent?.Invoke(target, hit.point);
+                OnHandsEvent?.Invoke(hit);
             }
         }
       

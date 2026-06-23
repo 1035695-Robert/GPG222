@@ -6,18 +6,14 @@ namespace Player
     public class HandsController : NetworkBehaviour
     {
         [SerializeField] private HandsModel model;
-        [SerializeField] private GameObject player;
-
+        [SerializeField] private NetworkObject player;
+       
         public override void OnNetworkSpawn()
         {
-            if (!IsServer) return;
+            if (!IsOwner) return;
             Debug.Log("Spawning hands");
-            FindOwner();
-        }
-
-        private void FindOwner()
-        {
-            //find player with same ownershipID
+            player = gameObject.transform.root.GetComponent<NetworkObject>();
+            model.OnSpawn(player);
         }
 
         public override void OnNetworkDespawn()
