@@ -1,5 +1,4 @@
 using System;
-using Prefabs;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ namespace Player
         [SerializeField] private LayerMask pickupLayerMask;
 
         [SerializeField] private float maxDistance;
-        [SerializeField] private HoldableObject holdableObject;
+        //[SerializeField] private HoldableObject holdableObject;
 
         
         
