@@ -1,45 +1,95 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
-using Player;
-namespace Player
+
+
+namespace Player.hands
 {
     public class HandsModel : NetworkBehaviour
     {
-       [SerializeField] private FixedJoint handGrabJoint;
-       [SerializeField] private PlayerModel model;
-       [SerializeField] private NetworkObject player;
-       [SerializeField] private Rigidbody handRigidbody;
-       
-       public void Setup()
-       {
-           model =transform.root.GetComponent<PlayerModel>();
-           player =  transform.root.GetComponent<NetworkObject>();
-           model.OnHandsEvent += GrabJoint;
-           model.OnDroppedEvent += DropJoint;
-       }
-       private void GrabJoint(RaycastHit hitInfo)
-       {
-           Debug.Log("grab");
-           GameObject target = hitInfo.transform.root.gameObject;
-           
-           transform.position = hitInfo.point + new Vector3(0, 0.25f, 0);
-           
-           handRigidbody.isKinematic = false;
-           handGrabJoint = gameObject.AddComponent<FixedJoint>();
-           handGrabJoint.connectedBody = target.GetComponent<Rigidbody>();
-       }
+        private FixedJoint _handGrabJoint;
 
-       private void DropJoint()
-       {
-           Destroy(handGrabJoint);
-           transform.localPosition = new Vector3(0, 0, 1f);
-           handRigidbody.isKinematic = true;
-       }
+        [SerializeField] private PlayerInteractModel interactModel;
+        [SerializeField] private NetworkObject player;
+        [SerializeField] private Rigidbody handRigidbody;
 
-       public override void OnNetworkDespawn()
-       {
-           base.OnNetworkDespawn();
-       }
+
+        [SerializeField] private GameObject target;
+        [SerializeField] private Vector3 targetPoint;
+
+        public delegate void GrabHandler(NetworkObject target, Vector3 point);
+
+        public delegate void DropHandler(NetworkObject target);
+
+        public event GrabHandler Grab;
+
+        public event DropHandler Drop;
+
+        public void Setup()
+        {
+            interactModel = transform.root.GetComponent<PlayerInteractModel>();
+            interactModel.isHolding.OnValueChanged += OnGrabChangeState;
+            player = transform.root.GetComponent<NetworkObject>();
+            interactModel.OnHandsEvent += GrabJointInformation;
+           
+        }
+
+        private void OnGrabChangeState(bool previousValue, bool newValue)
+        {
+            if (newValue)
+            {
+                Grabbed();
+            }
+            else
+                Dropped();
+        }
+
+        private void Grabbed()
+        {
+            Debug.Log(target.name + targetPoint);
+            SendGrab_Rpc(target, targetPoint);
+            handRigidbody.isKinematic = false;
+            _handGrabJoint = gameObject.AddComponent<FixedJoint>();
+            _handGrabJoint.connectedBody = target.GetComponent<Rigidbody>();
+        }
+
+        private void Dropped()
+        {
+            Destroy(_handGrabJoint);
+
+            SendDrop_Rpc(player);
+            handRigidbody.isKinematic = true;
+        }
+
+
+        private void GrabJointInformation(RaycastHit hitInfo)
+        {
+            target = hitInfo.transform.root.gameObject;
+            targetPoint = hitInfo.point;
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SendGrab_Rpc(NetworkObjectReference targetRef, Vector3 point)
+        {
+            if (targetRef.TryGet(out NetworkObject targetObject))
+            {
+                Grab?.Invoke(targetObject, point);
+            }
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SendDrop_Rpc(NetworkObjectReference targetRef)
+        {
+            if (targetRef.TryGet(out NetworkObject targetObject))
+            {
+                Drop?.Invoke(targetObject);
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            interactModel.isHolding.OnValueChanged -= OnGrabChangeState;
+            interactModel.OnHandsEvent -= GrabJointInformation; 
+        }
     }
 }
