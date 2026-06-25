@@ -30,7 +30,6 @@ namespace Player.hands
             interactModel.isHolding.OnValueChanged += OnGrabChangeState;
             player = transform.root.GetComponent<NetworkObject>();
             interactModel.OnHandsEvent += GrabJointInformation;
-           
         }
 
         private void OnGrabChangeState(bool previousValue, bool newValue)
@@ -45,7 +44,7 @@ namespace Player.hands
 
         private void Grabbed()
         {
-            Debug.Log(target.name + targetPoint);
+            
             SendGrab_Rpc(target, targetPoint);
             handRigidbody.isKinematic = false;
             _handGrabJoint = gameObject.AddComponent<FixedJoint>();
