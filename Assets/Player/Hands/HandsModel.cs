@@ -20,7 +20,7 @@ namespace Player.hands
 
         public delegate void DropHandler(NetworkObject target);
 
-        public event GrabHandler Grab;
+        public event GrabHandler GrabClient;
 
         public event DropHandler Drop;
 
@@ -30,6 +30,12 @@ namespace Player.hands
             interactModel.isHolding.OnValueChanged += OnGrabChangeState;
             player = transform.root.GetComponent<NetworkObject>();
             interactModel.OnHandsEvent += GrabJointInformation;
+        }
+
+        private void GrabJointInformation(RaycastHit hitInfo)
+        {
+            target = hitInfo.transform.root.gameObject;
+            targetPoint = hitInfo.point;
         }
 
         private void OnGrabChangeState(bool previousValue, bool newValue)
@@ -44,7 +50,6 @@ namespace Player.hands
 
         private void Grabbed()
         {
-            
             SendGrab_Rpc(target, targetPoint);
             handRigidbody.isKinematic = false;
             _handGrabJoint = gameObject.AddComponent<FixedJoint>();
@@ -55,40 +60,29 @@ namespace Player.hands
         {
             Destroy(_handGrabJoint);
 
-            SendDrop_Rpc(player);
+            SendDrop();
             handRigidbody.isKinematic = true;
         }
 
-
-        private void GrabJointInformation(RaycastHit hitInfo)
-        {
-            target = hitInfo.transform.root.gameObject;
-            targetPoint = hitInfo.point;
-        }
-
-        [Rpc(SendTo.ClientsAndHost)]
         private void SendGrab_Rpc(NetworkObjectReference targetRef, Vector3 point)
         {
             if (targetRef.TryGet(out NetworkObject targetObject))
             {
-                Grab?.Invoke(targetObject, point);
+                GrabClient?.Invoke(targetObject, point);
             }
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void SendDrop_Rpc(NetworkObjectReference targetRef)
+
+        private void SendDrop()
         {
-            if (targetRef.TryGet(out NetworkObject targetObject))
-            {
-                Drop?.Invoke(targetObject);
-            }
+            Drop?.Invoke(player);
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
             interactModel.isHolding.OnValueChanged -= OnGrabChangeState;
-            interactModel.OnHandsEvent -= GrabJointInformation; 
+            interactModel.OnHandsEvent -= GrabJointInformation;
         }
     }
 }

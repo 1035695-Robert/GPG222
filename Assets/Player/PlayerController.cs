@@ -10,14 +10,16 @@ namespace Player
     // player controller = inputs from controls
     public class PlayerController : NetworkBehaviour
     {
-        [FormerlySerializedAs("playerModel")] [SerializeField] private PlayerMovementModel playerMovementModel;
+        [FormerlySerializedAs("playerModel")] [SerializeField]
+        private PlayerMovementModel playerMovementModel;
+
         [SerializeField] private HandsModel handsModel;
         [SerializeField] private PlayerInteractModel playerInteractModel;
         private ControlInputs _playerInputs;
         private Vector2 _moveValue;
 
         [SerializeField] private GameObject playerHands;
-
+        [SerializeField] private NetworkObject networkHands;
 
         public override void OnNetworkSpawn()
         {
@@ -43,7 +45,7 @@ namespace Player
         [Rpc(SendTo.Server)]
         void HandSpawn_Rpc(ulong playerID)
         {
-            NetworkObject networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
+            networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
             networkHands.SpawnWithOwnership(playerID);
             handsModel = networkHands.GetComponent<HandsModel>();
             networkHands.TrySetParent(transform, false);
