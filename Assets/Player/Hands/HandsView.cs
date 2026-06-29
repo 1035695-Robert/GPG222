@@ -12,30 +12,41 @@ namespace Player.hands
         {
             base.OnNetworkSpawn();
 
-            handModel.Grab += HandGrab;
-            handModel.Drop += HandDrop;
+            handModel.GrabClient += HandGrabServer;
+            handModel.Drop += HandDropServer;
         }
 
 
-        private void HandGrab(NetworkObject grabObject, Vector3 hitPoint)
+        private void HandGrabServer(NetworkObject grabObject, Vector3 hitPoint)
         {
-            //transform.SetParent(grabObject.gameObject.transform);
+            transform.SetParent(grabObject.gameObject.transform);
+            HandGrabClient_Rpc(hitPoint);
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void HandGrabClient_Rpc(Vector3 hitPoint)
+        {
             transform.position = hitPoint + new Vector3(0, 0.5f, 0);
         }
 
 
-        private void HandDrop(NetworkObject player)
+        private void HandDropServer(NetworkObject player)
         {
-            //transform.setParent(player.gameObject)
+            transform.SetParent(player.gameObject.transform);
+            HandDropClient_Rpc();
+        }
 
+        [Rpc(SendTo.ClientsAndHost)]
+        private void HandDropClient_Rpc()
+        {
             transform.localPosition = new Vector3(0, 0, 0.75f);
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            handModel.Grab -= HandGrab;
-            handModel.Drop -= HandDrop;
+            handModel.GrabClient -= HandGrabServer;
+            handModel.Drop -= HandDropServer;
         }
     }
 }
