@@ -10,8 +10,7 @@ namespace Player
     // player controller = inputs from controls
     public class PlayerController : NetworkBehaviour
     {
-        [FormerlySerializedAs("playerModel")] [SerializeField]
-        private PlayerMovementModel playerMovementModel;
+        [SerializeField] private PlayerMovementModel playerMovementModel;
 
         [SerializeField] private HandsModel handsModel;
         [SerializeField] private PlayerInteractModel playerInteractModel;

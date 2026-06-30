@@ -8,7 +8,6 @@ public class PlayerInteractModel : NetworkBehaviour
 
     public event Pickup OnPickupEvent;
     public event Action OnDroppedEvent;
-
     public event Action<RaycastHit> OnHandsEvent;
 
     [SerializeField] private LayerMask pickupLayerMask;
@@ -24,7 +23,7 @@ public class PlayerInteractModel : NetworkBehaviour
     public void Interact_Rpc()
     {
         if (!isHolding.Value) TryPickUp();
-        else DropObject_Rpc();
+        else DropObject();
     }
 
     private void TryPickUp()
@@ -33,23 +32,19 @@ public class PlayerInteractModel : NetworkBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
         {
-            NetworkObjectReference target = hit.transform.root.gameObject;
+            GameObject target = hit.transform.root.gameObject;
             
             OnPickupEvent?.Invoke(hit.point);
             OnHandsEvent?.Invoke(hit);
-            SetupPlayerJoint_Rpc(target);
+            SetupPlayerJoint(target);
         }
     }
 
     [SerializeField] private float driveSpringValue;
 
-    void SetupPlayerJoint_Rpc(NetworkObjectReference targetRef)
+    void SetupPlayerJoint(GameObject target)
     {
-        if (targetRef.TryGet(out NetworkObject networkObject))
-        {
-           
-            GameObject target = networkObject.gameObject;
-
+        
             playerJoint = gameObject.AddComponent<ConfigurableJoint>();
             playerJoint.connectedBody = target.GetComponent<Rigidbody>();
             playerJoint.anchor = Vector3.zero;
@@ -90,11 +85,11 @@ public class PlayerInteractModel : NetworkBehaviour
 
             playerJoint.enableCollision = true;
             isHolding.Value = true;
-        }
+        
     }
 
 
-    private void DropObject_Rpc()
+    private void DropObject()
     {
         Debug.Log("Dropping object");
         Destroy(playerJoint);

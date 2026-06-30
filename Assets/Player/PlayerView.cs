@@ -6,6 +6,6 @@ namespace Player
 {
     public class PlayerView : NetworkBehaviour
     {
-        
+        //UI
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -15,35 +16,35 @@ namespace Player
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private Rigidbody playerRigidbody;
         public bool isHolding = false;
-        public Vector2 moveValue;
-       [SerializeField] private PlayerInteractModel _interactState;
-        
-        
-       
+        private Vector2 _moveValue;
+        [SerializeField] private PlayerInteractModel interactState;
+
+
+
 
         private void FixedUpdate()
         {
             if (!IsServer) return;
-            isHolding = _interactState.isHolding.Value;   
-            Vector3 directionInput = new Vector3(moveValue.x, 0, moveValue.y).normalized;
-            Move_Rpc(directionInput);
-            Rotation_Rpc(directionInput);
-            
+            isHolding = interactState.isHolding.Value;
+            Vector3 directionInput = new Vector3(_moveValue.x, 0, _moveValue.y).normalized;
+            Move(directionInput);
+            Rotation(directionInput);
+
         }
 
         public void NetworkMoveInput(Vector2 clientMoveValue)
         {
             Debug.Log("NetworkMoveInput");
-            moveValue = clientMoveValue;
+            _moveValue = clientMoveValue;
         }
 
 
-        private void Move_Rpc(Vector3 directionInput)
+        private void Move(Vector3 directionInput)
         {
             playerRigidbody.MovePosition(playerRigidbody.position + directionInput * (walkSpeed * Time.fixedDeltaTime));
         }
 
-        private void Rotation_Rpc(Vector3 directionInput)
+        private void Rotation(Vector3 directionInput)
         {
             if (isHolding) return;
             if (directionInput != Vector3.zero)

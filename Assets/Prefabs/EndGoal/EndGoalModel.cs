@@ -19,6 +19,7 @@ namespace Prefabs.EndGoal
                     return;
                 }
             }
+            zone.enabled = false;
             IsCompleted?.Invoke();
         }
     }

@@ -50,7 +50,8 @@ namespace Player.hands
 
         private void Grabbed()
         {
-            SendGrab_Rpc(target, targetPoint);
+            NetworkObject grabObject = target.GetComponent<NetworkObject>();
+            GrabClient?.Invoke(grabObject, targetPoint);
             handRigidbody.isKinematic = false;
             _handGrabJoint = gameObject.AddComponent<FixedJoint>();
             _handGrabJoint.connectedBody = target.GetComponent<Rigidbody>();
@@ -60,22 +61,8 @@ namespace Player.hands
         {
             Destroy(_handGrabJoint);
 
-            SendDrop();
-            handRigidbody.isKinematic = true;
-        }
-
-        private void SendGrab_Rpc(NetworkObjectReference targetRef, Vector3 point)
-        {
-            if (targetRef.TryGet(out NetworkObject targetObject))
-            {
-                GrabClient?.Invoke(targetObject, point);
-            }
-        }
-
-
-        private void SendDrop()
-        {
             Drop?.Invoke(player);
+            handRigidbody.isKinematic = true;
         }
 
         public override void OnNetworkDespawn()
