@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Prefabs.EndGoal;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.Networking.Transport;
@@ -8,7 +9,9 @@ public class SpawnManager : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineCamera virtualCamera;
-
+    
+    [SerializeField] private EndGoalController endGoalController;
+    
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -35,7 +38,8 @@ public class SpawnManager : NetworkBehaviour
             CameraSetup_Rpc(newPlayer);
         }
     }
-
+    
+    
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void CameraSetup_Rpc(NetworkObjectReference playerRef)
     {
