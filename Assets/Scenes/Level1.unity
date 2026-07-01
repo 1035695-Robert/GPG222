@@ -795,6 +795,10 @@ PrefabInstance:
       value: 3696130919
       objectReference: {fileID: 0}
     - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Name
       value: Shape1
       objectReference: {fileID: 0}
@@ -804,7 +808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.12
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -812,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.09
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -850,6 +854,14 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2690565217140046915, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3066566086446891952, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Drag
       value: 10
@@ -857,6 +869,10 @@ PrefabInstance:
     - target: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: m_Mass
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039480364426569904, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
