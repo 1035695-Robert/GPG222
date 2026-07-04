@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Networking.Transport;
 using UnityEngine;
 
 namespace Prefabs.EndGoal
@@ -12,7 +13,7 @@ namespace Prefabs.EndGoal
    
         [SerializeField] private EndGoalModel goalModel;
         [SerializeField] private EndGoalView goalView;
-
+        
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -20,24 +21,36 @@ namespace Prefabs.EndGoal
             moveableObjectCollider = movableObject.GetComponentsInChildren<Collider>(true);
             zoneCollider = GetComponent<BoxCollider>();
 
-            goalModel.IsCompleted += OnCompletion_Rpc;
+            goalModel.IsCompleted += OnServerCompletion_Rpc;
+        }
+
+        public void AddPlayer(NetworkConnection newPlayer)
+        {
+            
         }
 
         void OnTriggerStay(Collider other)
-        { 
+        {
+            if (!IsServer) return;
             goalModel.IsObjectFullyInArea(zoneCollider, moveableObjectCollider);
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void OnCompletion_Rpc()
+        [Rpc(SendTo.Server)]
+        private void OnServerCompletion_Rpc()
         { 
+            OnClientCompletion_Rpc();
+        }
+        [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
+        private void OnClientCompletion_Rpc()
+        {
             goalView.LevelCompleted();
         }
+        
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            goalModel.IsCompleted -= OnCompletion_Rpc;
+            goalModel.IsCompleted -= OnServerCompletion_Rpc;
         }
     }
 }

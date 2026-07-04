@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractModel : NetworkBehaviour
 {
-    public delegate void Pickup(Vector3 targetPoint);
+    public delegate void Pickup();
 
     public event Pickup OnPickupEvent;
     public event Action OnDroppedEvent;
@@ -13,9 +13,10 @@ public class PlayerInteractModel : NetworkBehaviour
     [SerializeField] private LayerMask pickupLayerMask;
 
     [SerializeField] private float maxDistance;
-    
+
     [SerializeField] private ConfigurableJoint playerJoint;
-    [SerializeField] public NetworkVariable<bool> isHolding =  new NetworkVariable<bool>(false,
+
+    [SerializeField] public NetworkVariable<bool> isHolding = new NetworkVariable<bool>(false,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server);
 
@@ -33,59 +34,63 @@ public class PlayerInteractModel : NetworkBehaviour
         if (Physics.Raycast(ray, out var hit, maxDistance, pickupLayerMask))
         {
             GameObject target = hit.transform.root.gameObject;
-            
-            OnPickupEvent?.Invoke(hit.point);
+            GrabClient_Rpc();
+
             OnHandsEvent?.Invoke(hit);
             SetupPlayerJoint(target);
         }
+    }
+
+    [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
+    private void GrabClient_Rpc()
+    {
+        OnPickupEvent?.Invoke();
     }
 
     [SerializeField] private float driveSpringValue;
 
     void SetupPlayerJoint(GameObject target)
     {
-        
-            playerJoint = gameObject.AddComponent<ConfigurableJoint>();
-            playerJoint.connectedBody = target.GetComponent<Rigidbody>();
-            playerJoint.anchor = Vector3.zero;
+        playerJoint = gameObject.AddComponent<ConfigurableJoint>();
+        playerJoint.connectedBody = target.GetComponent<Rigidbody>();
+        playerJoint.anchor = Vector3.zero;
 
-            playerJoint.connectedAnchor = transform.InverseTransformPoint(transform.forward);
+        playerJoint.connectedAnchor = transform.InverseTransformPoint(transform.forward);
 
-            playerJoint.xMotion = ConfigurableJointMotion.Free;
-            playerJoint.yMotion = ConfigurableJointMotion.Free;
-            playerJoint.zMotion = ConfigurableJointMotion.Free;
+        playerJoint.xMotion = ConfigurableJointMotion.Free;
+        playerJoint.yMotion = ConfigurableJointMotion.Free;
+        playerJoint.zMotion = ConfigurableJointMotion.Free;
 
-            playerJoint.angularXMotion = ConfigurableJointMotion.Locked;
-            playerJoint.angularYMotion = ConfigurableJointMotion.Limited;
-            playerJoint.angularZMotion = ConfigurableJointMotion.Locked;
+        playerJoint.angularXMotion = ConfigurableJointMotion.Locked;
+        playerJoint.angularYMotion = ConfigurableJointMotion.Limited;
+        playerJoint.angularZMotion = ConfigurableJointMotion.Locked;
 
-            JointDrive xDrive = new JointDrive
-            {
-                positionSpring = driveSpringValue,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            playerJoint.xDrive = xDrive;
+        JointDrive xDrive = new JointDrive
+        {
+            positionSpring = driveSpringValue,
+            positionDamper = 50f,
+            maximumForce = Mathf.Infinity
+        };
+        playerJoint.xDrive = xDrive;
 
-            JointDrive yDrive = new JointDrive
-            {
-                positionSpring = Mathf.Infinity,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            playerJoint.yDrive = yDrive;
+        JointDrive yDrive = new JointDrive
+        {
+            positionSpring = Mathf.Infinity,
+            positionDamper = 50f,
+            maximumForce = Mathf.Infinity
+        };
+        playerJoint.yDrive = yDrive;
 
-            JointDrive zDrive = new JointDrive
-            {
-                positionSpring = driveSpringValue,
-                positionDamper = 50f,
-                maximumForce = Mathf.Infinity
-            };
-            playerJoint.zDrive = zDrive;
+        JointDrive zDrive = new JointDrive
+        {
+            positionSpring = driveSpringValue,
+            positionDamper = 50f,
+            maximumForce = Mathf.Infinity
+        };
+        playerJoint.zDrive = zDrive;
 
-            playerJoint.enableCollision = true;
-            isHolding.Value = true;
-        
+        playerJoint.enableCollision = true;
+        isHolding.Value = true;
     }
 
 
@@ -93,9 +98,12 @@ public class PlayerInteractModel : NetworkBehaviour
     {
         Debug.Log("Dropping object");
         Destroy(playerJoint);
-
-        OnDroppedEvent?.Invoke();
+        ClientDrop_Rpc();
         isHolding.Value = false;
     }
+[Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
+    private void ClientDrop_Rpc()
+    {
+        OnDroppedEvent?.Invoke();
+    }
 }
-
