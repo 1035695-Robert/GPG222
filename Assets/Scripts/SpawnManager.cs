@@ -1,8 +1,6 @@
-using JetBrains.Annotations;
 using Prefabs.EndGoal;
 using Unity.Cinemachine;
 using Unity.Netcode;
-using Unity.Networking.Transport;
 using UnityEngine;
 
 public class SpawnManager : NetworkBehaviour
