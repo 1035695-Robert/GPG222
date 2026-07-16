@@ -239,9 +239,10 @@ GameObject:
   - component: {fileID: 7483156347187138122}
   - component: {fileID: -8826539354449078511}
   - component: {fileID: -7950622587033988479}
+  - component: {fileID: -8794563575118930048}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,7 +312,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -358,7 +359,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &7483156347187138122
 MonoBehaviour:
@@ -374,10 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   playerMovementModel: {fileID: -8826539354449078511}
-  handsModel: {fileID: 0}
   playerInteractModel: {fileID: -7950622587033988479}
-  playerHands: {fileID: 6218027500330610180, guid: 517157d838350544380af4f433579032, type: 3}
-  networkHands: {fileID: 0}
 --- !u!114 &-8826539354449078511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,3 +418,20 @@ MonoBehaviour:
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 0
   driveSpringValue: 10000
+--- !u!114 &-8794563575118930048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027749859248984794}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1

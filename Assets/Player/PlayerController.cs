@@ -1,8 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Player.hands;
-using UnityEngine.Serialization;
+
 
 
 namespace Player
@@ -12,26 +11,28 @@ namespace Player
     {
         [SerializeField] private PlayerMovementModel playerMovementModel;
 
-        [SerializeField] private HandsModel handsModel;
+        
         [SerializeField] private PlayerInteractModel playerInteractModel;
         private ControlInputs _playerInputs;
         private Vector2 _moveValue;
 
-        [SerializeField] private GameObject playerHands;
-        [SerializeField] private NetworkObject networkHands;
+        
 
         public override void OnNetworkSpawn()
         {
-            if (!IsLocalPlayer) return;
+            if (!IsOwner)
+            {
+                Debug.Log("NO PLAYER");
+                return;
+            }
             base.OnNetworkSpawn();
 
             if (playerMovementModel == null)
             {
                 playerMovementModel = GetComponent<PlayerMovementModel>();
             }
-
-            ulong playerID = OwnerClientId;
-            HandSpawn_Rpc(playerID);
+            
+            
 
             _playerInputs = new ControlInputs();
             if (_playerInputs == null) Debug.LogError("error");
@@ -41,15 +42,7 @@ namespace Player
             _playerInputs.Enable();
         }
 
-        [Rpc(SendTo.Server)]
-        void HandSpawn_Rpc(ulong playerID)
-        {
-            networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
-            networkHands.SpawnWithOwnership(playerID);
-            handsModel = networkHands.GetComponent<HandsModel>();
-            networkHands.TrySetParent(transform, false);
-            handsModel.Setup();
-        }
+       
 
         private void PlayerMove(InputAction.CallbackContext ctx)
         {
@@ -58,7 +51,7 @@ namespace Player
             MovementInputRequest_Rpc(_moveValue);
         }
 
-        [Rpc(SendTo.Server)]
+        [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
         private void MovementInputRequest_Rpc(Vector2 moveValue)
         {
             playerMovementModel.NetworkMoveInput(moveValue);
@@ -72,7 +65,7 @@ namespace Player
 
         public override void OnNetworkDespawn()
         {
-            if (!IsLocalPlayer) return;
+            if (!IsOwner) return;
             base.OnNetworkDespawn();
             _playerInputs.Player.Move.performed -= PlayerMove;
             _playerInputs.Player.Move.canceled -= PlayerMove;

@@ -6,7 +6,6 @@ namespace Player.hands
     public class HandsView : NetworkBehaviour
     {
         [SerializeField] private HandsModel handModel;
-        [SerializeField] private PlayerInteractModel interactState;
 
         public override void OnNetworkSpawn()
         {

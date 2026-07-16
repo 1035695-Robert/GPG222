@@ -54,8 +54,6 @@ namespace Player
                     transform.rotation, targetRotation,
                     rotationSpeed * Time.deltaTime * 5f);
             }
-            else
-                playerRigidbody.angularVelocity = Vector3.zero;
         }
     }
 }
