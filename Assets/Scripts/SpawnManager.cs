@@ -42,12 +42,12 @@ public class SpawnManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    void HandSpawn_Rpc(ulong clientID, NetworkObjectReference playerRef)
+    void HandSpawn_Rpc(ulong id, NetworkObjectReference playerRef)
     {
         if (playerRef.TryGet(out NetworkObject player))
         {
             networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
-            networkHands.SpawnWithOwnership(OwnerClientId);
+            networkHands.SpawnWithOwnership(id);
             handsModel = networkHands.GetComponent<HandsModel>();
             networkHands.TrySetParent(player, false);
             handsModel.Setup();
