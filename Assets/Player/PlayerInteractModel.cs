@@ -18,7 +18,7 @@ namespace Player
 
         [SerializeField] private ConfigurableJoint playerJoint;
 
-        [SerializeField] public NetworkVariable<bool> isHolding = new NetworkVariable<bool>(false,
+            [SerializeField] public NetworkVariable<bool> isHolding = new NetworkVariable<bool>(false,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
 
@@ -28,7 +28,7 @@ namespace Player
             if (!isHolding.Value) TryPickUp();
             else DropObject();
         }
-
+   
         private void TryPickUp()
         {
             Debug.Log("TryPickUp");

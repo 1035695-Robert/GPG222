@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Player.hands
         [SerializeField] private PlayerInteractModel interactModel;
         [SerializeField] private NetworkObject player;
         [SerializeField] private Rigidbody handRigidbody;
-
+        
 
         [SerializeField] private GameObject target;
         [SerializeField] private Vector3 targetPoint;
@@ -53,7 +54,7 @@ namespace Player.hands
             NetworkObject grabObject = target.GetComponent<NetworkObject>();
             GrabClient?.Invoke(grabObject, targetPoint);
             handRigidbody.isKinematic = false;
-            _handGrabJoint = gameObject.AddComponent<FixedJoint>();
+            _handGrabJoint = handRigidbody.gameObject.AddComponent<FixedJoint>();
             _handGrabJoint.connectedBody = target.GetComponent<Rigidbody>();
         }
 
@@ -63,6 +64,47 @@ namespace Player.hands
 
             Drop?.Invoke(player);
             handRigidbody.isKinematic = true;
+        }
+
+        [Header("Hand Movement")] [SerializeField]
+        private float handInputValue;
+
+        [SerializeField] float currentHandRotation;
+        [SerializeField] private float minHandAngle = -90;
+        [SerializeField] private float maxHandAngle = 0;
+        [SerializeField] private float rotationSpeed = 5f;
+        [SerializeField] private Rigidbody hands;
+
+        private void FixedUpdate()
+        {
+            if (!IsServer) return;
+            if (handInputValue == 0) return;
+            HandRotation();
+        }
+
+        private void HandRotation()
+        {
+            if (interactModel.isHolding.Value) return;
+            float nextRotation = currentHandRotation + (handInputValue * rotationSpeed * 10f) * Time.deltaTime;
+
+            if (nextRotation >= minHandAngle && nextRotation <= 0)
+            {
+                currentHandRotation = nextRotation;
+            }
+            else if (nextRotation < minHandAngle)
+            {
+                currentHandRotation = minHandAngle;
+            }
+            else if (nextRotation > maxHandAngle)
+            {
+                currentHandRotation = maxHandAngle;
+            }
+            hands.transform.localRotation = Quaternion.Euler(currentHandRotation, 0, 0);
+        }
+
+        public void HandRotationValue(float handAngleValue)
+        {
+            handInputValue = handAngleValue;
         }
 
         public override void OnNetworkDespawn()

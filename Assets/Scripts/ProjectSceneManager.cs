@@ -5,31 +5,26 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ProjectSceneManager : NetworkBehaviour
+public class PlayerNetworkManager : NetworkBehaviour
 {
     [SerializeField] private string sceneName;
+    [SerializeField] private GameObject canvasUI;
 
-    private int _playerCount;
+    public int maxPlayerCount = 2;
 
-//controller
-    private void OnCollisionEnter(Collision col)
+    public override void OnNetworkSpawn()
     {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            _playerCount++;
-        }
+        if (!IsServer) return;
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
     }
-    
-    
-    private void LoadLevel()
+
+    private void OnClientConnected(ulong clientId)
     {
-        if (IsServer && !string.IsNullOrEmpty(sceneName))
-        {
-            var status = NetworkManager.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-            if (status != SceneEventProgressStatus.Started)
-            {
-                Debug.LogWarning("Scene " + sceneName + " failed to load.");
-            }
-        }
+        
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void MenuClose_Rpc()
+    {
+        canvasUI.SetActive(false);
     }
 }

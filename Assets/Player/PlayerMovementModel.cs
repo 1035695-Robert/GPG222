@@ -19,6 +19,8 @@ namespace Player
         private Vector2 _moveValue;
         [SerializeField] private PlayerInteractModel interactState;
 
+        
+        
 
 
 
@@ -29,8 +31,9 @@ namespace Player
             Vector3 directionInput = new Vector3(_moveValue.x, 0, _moveValue.y).normalized;
             Move(directionInput);
             Rotation(directionInput);
-
         }
+
+      
 
         public void NetworkMoveInput(Vector2 clientMoveValue)
         {
@@ -38,6 +41,7 @@ namespace Player
             _moveValue = clientMoveValue;
         }
 
+        
 
         private void Move(Vector3 directionInput)
         {

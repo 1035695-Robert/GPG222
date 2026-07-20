@@ -261,6 +261,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4972253833625402455}
+  - {fileID: 7150534575768058242}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6378162120842473831
@@ -376,6 +377,9 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerMovementModel: {fileID: -8826539354449078511}
   playerInteractModel: {fileID: -7950622587033988479}
+  handsModel: {fileID: 0}
+  playerHands: {fileID: 6218027500330610180, guid: 517157d838350544380af4f433579032, type: 3}
+  networkHands: {fileID: 0}
 --- !u!114 &-8826539354449078511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,3 +439,34 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!1 &9046862781226934219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7150534575768058242}
+  m_Layer: 0
+  m_Name: hands
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7150534575768058242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046862781226934219}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02499943, y: 0.24999988, z: 0.0886385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5207462445088895524}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

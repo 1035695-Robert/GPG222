@@ -8,22 +8,22 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class RelayManager : MonoBehaviour
+public class SessionManager : MonoBehaviour
 {
-    [SerializeField]private string joinCode;
+    public int playerCount = 2;
+    [SerializeField] private string joinCode;
     [SerializeField] private TextMeshProUGUI joinCodeText;
-    
+
     [SerializeField] private string relayCode;
-    
-    
+
+
     [SerializeField] private GameObject mainUI;
     [SerializeField] private GameObject hostUi;
     [SerializeField] private GameObject clientUi;
-    
+
     public void StartHostWithRelay()
     {
-      _ = StartHostWithRelay(2, "udp");
-      
+        _ = StartHostWithRelay(playerCount, "udp");
     }
 
     public void JoinUI()
@@ -31,10 +31,12 @@ public class RelayManager : MonoBehaviour
         clientUi.SetActive(true);
         mainUI.SetActive(false);
     }
+
     public void StartClientWithRelay()
     {
-       _ = StartClientWithRelay(relayCode, "udp");
+        _ = StartClientWithRelay(relayCode, "udp");
     }
+
     private async Task<string> StartHostWithRelay(int maxConnections, string connectionType)
     {
         await UnityServices.InitializeAsync();
@@ -42,12 +44,14 @@ public class RelayManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+
         var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(allocation.ToRelayServerData(connectionType));
+        NetworkManager.Singleton.GetComponent<UnityTransport>()
+            .SetRelayServerData(allocation.ToRelayServerData(connectionType));
         joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-        
+
         HostMenu();
-        
+
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
 
@@ -57,6 +61,7 @@ public class RelayManager : MonoBehaviour
         joinCodeText.text = joinCode;
         mainUI.SetActive(false);
     }
+
     private async Task<bool> StartClientWithRelay(string code, string connectionType)
     {
         await UnityServices.InitializeAsync();
@@ -66,15 +71,18 @@ public class RelayManager : MonoBehaviour
         }
 
         var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode: code);
-        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(allocation.ToRelayServerData(connectionType));
+        NetworkManager.Singleton.GetComponent<UnityTransport>()
+            .SetRelayServerData(allocation.ToRelayServerData(connectionType));
         return !string.IsNullOrEmpty(code) && NetworkManager.Singleton.StartClient();
     }
 
     public void MainMenu()
     {
         mainUI.SetActive(true);
-        if(clientUi)
-        {clientUi.SetActive(false);}
+        if (clientUi)
+        {
+            clientUi.SetActive(false);
+        }
     }
 
     public void UserEnterRelayCode(string inputCode)

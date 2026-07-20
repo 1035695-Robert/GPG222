@@ -8,11 +8,13 @@ public class SpawnManager : NetworkBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineCamera virtualCamera;
 
-    [SerializeField] private HandsModel handsModel;
-    [SerializeField] private GameObject playerHands;
-    [SerializeField] private NetworkObject networkHands;
+   
 
-
+[Header("PlayerManager")]
+    [SerializeField] private string sceneName;
+    [SerializeField] private GameObject canvasUI;
+    public int maxPlayerCount = 2;
+    
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -33,26 +35,26 @@ public class SpawnManager : NetworkBehaviour
     {
         NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
         newPlayer.SpawnAsPlayerObject(clientID);
-        HandSpawn_Rpc(clientID, newPlayer);
+        
 
         if (newPlayer != null)
         {
             CameraSetup_Rpc(newPlayer);
         }
-    }
-
-    [Rpc(SendTo.Server)]
-    void HandSpawn_Rpc(ulong id, NetworkObjectReference playerRef)
-    {
-        if (playerRef.TryGet(out NetworkObject player))
+        
+        if (NetworkManager.Singleton.ConnectedClientsList.Count == maxPlayerCount)
         {
-            networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
-            networkHands.SpawnWithOwnership(id);
-            handsModel = networkHands.GetComponent<HandsModel>();
-            networkHands.TrySetParent(player, false);
-            handsModel.Setup();
+            NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
+
+            MenuClose_Rpc();
         }
     }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void MenuClose_Rpc()
+    {
+        canvasUI.SetActive(false);
+    }
+   
 
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void CameraSetup_Rpc(NetworkObjectReference playerRef)

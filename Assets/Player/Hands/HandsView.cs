@@ -7,6 +7,8 @@ namespace Player.hands
     {
         [SerializeField] private HandsModel handModel;
 
+       
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -18,27 +20,30 @@ namespace Player.hands
 
         private void HandGrabServer(NetworkObject grabObject, Vector3 hitPoint)
         {
-            transform.SetParent(grabObject.gameObject.transform);
+            transform.SetParent(grabObject.transform);
             HandGrabClient_Rpc(hitPoint);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void HandGrabClient_Rpc(Vector3 hitPoint)
         {
+         
             transform.position = hitPoint + new Vector3(0, 0.5f, 0);
         }
 
 
         private void HandDropServer(NetworkObject player)
         {
-            transform.SetParent(player.gameObject.transform);
+            transform.SetParent(player.transform.Find("hands").transform);
             HandDropClient_Rpc();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void HandDropClient_Rpc()
         {
+            
             transform.localPosition = new Vector3(0, 0, 0.75f);
+           
         }
 
         public override void OnNetworkDespawn()

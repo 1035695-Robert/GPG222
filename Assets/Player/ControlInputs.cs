@@ -109,6 +109,15 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HandRotation"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf2f9ffb-ba8f-4ee6-8d67-d1d31bb088f6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -181,7 +190,7 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cb7bd3de-a66e-4ecf-b97e-48ba328e0e11"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard"",
@@ -199,6 +208,39 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""bf7b29a2-78a2-4e26-b3a3-f2b19a187166"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HandRotation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3c91f3ef-7893-42c6-ad4f-7ef7fb68573f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HandRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""76c7f563-463b-453b-add9-57391501737c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HandRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -237,6 +279,7 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_HandRotation = m_Player.FindAction("HandRotation", throwIfNotFound: true);
     }
 
     ~@ControlInputs()
@@ -319,6 +362,7 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_HandRotation;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -338,6 +382,10 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/HandRotation".
+        /// </summary>
+        public InputAction @HandRotation => m_Wrapper.m_Player_HandRotation;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -370,6 +418,9 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @HandRotation.started += instance.OnHandRotation;
+            @HandRotation.performed += instance.OnHandRotation;
+            @HandRotation.canceled += instance.OnHandRotation;
         }
 
         /// <summary>
@@ -387,6 +438,9 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @HandRotation.started -= instance.OnHandRotation;
+            @HandRotation.performed -= instance.OnHandRotation;
+            @HandRotation.canceled -= instance.OnHandRotation;
         }
 
         /// <summary>
@@ -467,5 +521,12 @@ public partial class @ControlInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HandRotation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHandRotation(InputAction.CallbackContext context);
     }
 }
