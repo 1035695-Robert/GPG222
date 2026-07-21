@@ -40,8 +40,8 @@ namespace Player
             _playerInputs.Player.Move.performed += PlayerMove;
             _playerInputs.Player.Move.canceled += PlayerMove;
             _playerInputs.Player.Interact.performed += Interaction;
-            _playerInputs.Player.HandRotation.performed += RotateHands;
-            _playerInputs.Player.HandRotation.canceled += RotateHands;
+            // _playerInputs.Player.HandRotation.performed += RotateHands;
+            // _playerInputs.Player.HandRotation.canceled += RotateHands;
             _playerInputs.Enable();
         }
         
@@ -69,19 +69,21 @@ namespace Player
             playerMovementModel.NetworkMoveInput(moveValue);
         }
 
-        private void RotateHands(InputAction.CallbackContext obj)
-        {
-            if (!IsOwner) return;
-            float handRotationValue = obj.ReadValue<float>();
-            HandRotation_Rpc(handRotationValue);
-        }
+        #region Hand Rotation
 
-        [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
-        private void HandRotation_Rpc(float handRotationValue)
-        {
-            handsModel.HandRotationValue(handRotationValue);
-        }
-
+        // private void RotateHands(InputAction.CallbackContext obj)
+        // {
+        //     if (!IsOwner) return;
+        //     float handRotationValue = obj.ReadValue<float>();
+        //     HandRotation_Rpc(handRotationValue);
+        // }
+        //
+        // [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
+        // private void HandRotation_Rpc(float handRotationValue)
+        // {
+        //     handsModel.HandRotationValue(handRotationValue);
+        // }
+        #endregion
         private void Interaction(InputAction.CallbackContext obj)
         {
             playerInteractModel.Interact_Rpc();

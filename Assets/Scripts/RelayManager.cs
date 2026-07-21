@@ -8,10 +8,10 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class SessionManager : MonoBehaviour
+public class RelayManager : MonoBehaviour
 {
     public int playerCount = 2;
-    [SerializeField] private string joinCode;
+    [SerializeField] public string joinCode;
     [SerializeField] private TextMeshProUGUI joinCodeText;
 
     [SerializeField] private string relayCode;
@@ -21,10 +21,9 @@ public class SessionManager : MonoBehaviour
     [SerializeField] private GameObject hostUi;
     [SerializeField] private GameObject clientUi;
 
-    public async void StartHostWithRelay()
+    public  void StartHostWithRelay()
     {
-        await StartHostWithRelay(playerCount, "udp");
-        option
+         _= StartHostWithRelay(playerCount, "udp");
     }
 
     public void JoinUI()
@@ -38,20 +37,15 @@ public class SessionManager : MonoBehaviour
         _ = StartClientWithRelay(relayCode, "udp");
     }
 
-    private async Task<string> StartHostWithRelay(int maxConnections, string connectionType)
+    public async Task<string> StartHostWithRelay(int maxConnections, string connectionType)
     {
-        await UnityServices.InitializeAsync();
-        if (!AuthenticationService.Instance.IsSignedIn)
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        }
+        await Initialise();
 
         var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
         NetworkManager.Singleton.GetComponent<UnityTransport>()
             .SetRelayServerData(allocation.ToRelayServerData(connectionType));
         joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
-        HostMenu();
+        
 
         return NetworkManager.Singleton.StartHost() ? joinCode : null;
     }
@@ -63,13 +57,16 @@ public class SessionManager : MonoBehaviour
         mainUI.SetActive(false);
     }
 
-    private async Task<bool> StartClientWithRelay(string code, string connectionType)
+    public async Task Initialise()
     {
         await UnityServices.InitializeAsync();
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+    }
+    public async Task<bool> StartClientWithRelay(string code, string connectionType)
+    {
 
         var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode: code);
         NetworkManager.Singleton.GetComponent<UnityTransport>()

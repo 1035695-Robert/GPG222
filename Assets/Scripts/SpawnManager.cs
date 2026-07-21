@@ -38,47 +38,44 @@ public class SpawnManager : NetworkBehaviour
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
         NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
-        newPlayer.SpawnAsPlayerObject(clientID,true);
-        
-        if (newPlayer != null)
-        {
-            CameraSetup_Rpc(clientID);
-        }
-        
-        if (NetworkManager.Singleton.ConnectedClientsList.Count == maxPlayerCount)
+        newPlayer.SpawnAsPlayerObject(clientID, true);
+
+        CameraSetup_Rpc(clientID);
+
+        if (NetworkManager.Singleton.ConnectedClientsList.Count == maxPlayerCount &&
+            SceneManager.GetActiveScene().name == "MainMenu")
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
-
-            MenuClose_Rpc();
+            MainMenuController mmc = GetComponent<MainMenuController>();
+            mmc.CustomisationMenu_Rpc();
         }
     }
 
     private void SceneLoadCompleteHandler(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted,
         List<ulong> clientsTimedOut)
     {
+        Debug.Log("newScene");
         foreach (ulong clientID in clientsCompleted)
         {
             SpawnPlayer(clientID);
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
-    private void MenuClose_Rpc()
-    {
-        canvasUI.SetActive(false);
-    }
+    // [Rpc(SendTo.ClientsAndHost)]
+    // private void MenuClose_Rpc()
+    // {
+    //     canvasUI.SetActive(false);
+    // }
 
 
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void CameraSetup_Rpc(ulong clientID)
     {
-      
-            NetworkObject player = NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject;
-        
-                if (player.IsLocalPlayer)
-                {
-                    virtualCamera.Follow = player.transform;
-                }
-                
+        NetworkObject player = NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject;
+
+        if (player.IsLocalPlayer)
+        {
+            virtualCamera.Follow = player.transform;
+        }
     }
 }
