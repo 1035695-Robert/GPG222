@@ -21,9 +21,10 @@ public class SessionManager : MonoBehaviour
     [SerializeField] private GameObject hostUi;
     [SerializeField] private GameObject clientUi;
 
-    public void StartHostWithRelay()
+    public async void StartHostWithRelay()
     {
-        _ = StartHostWithRelay(playerCount, "udp");
+        await StartHostWithRelay(playerCount, "udp");
+        option
     }
 
     public void JoinUI()

@@ -27,6 +27,7 @@ namespace Player.hands
 
         public void Setup()
         {
+            if(!IsServer) return;
             interactModel = transform.root.GetComponent<PlayerInteractModel>();
             interactModel.isHolding.OnValueChanged += OnGrabChangeState;
             player = transform.root.GetComponent<NetworkObject>();
@@ -109,6 +110,7 @@ namespace Player.hands
 
         public override void OnNetworkDespawn()
         {
+            if(!IsServer)  return;
             base.OnNetworkDespawn();
             interactModel.isHolding.OnValueChanged -= OnGrabChangeState;
             interactModel.OnHandsEvent -= GrabJointInformation;

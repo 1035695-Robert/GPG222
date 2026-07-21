@@ -23,12 +23,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/29fe0f7936bc45ffa3146fe90031d8491bc00/b1/e69aaf17/02000051pdb43.il" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/ControlInputs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerInteractModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.playmode@d6d235962e24/Scenarios/Editor/Nodes/Editor/EditorMultiplayerPlaymodeRunNode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.tools@acc3b25185bb/Adapters/Ngo1/Ngo1Adapter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.tools@acc3b25185bb/Common/Runtime/Helpers/RuntimeUpdaterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/Components/NetworkTransform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/Configuration/NetworkPrefab.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/Configuration/NetworkPrefabs.cs" root0="SKIP_HIGHLIGHTING" />
@@ -216,6 +217,7 @@
       <workItem from="1782876156260" duration="602000" />
       <workItem from="1784004887359" duration="7854000" />
       <workItem from="1784180054113" duration="9956000" />
+      <workItem from="1784602135691" duration="5281000" />
     </task>
     <servers />
   </component>
@@ -248,6 +250,19 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SpawnManager.cs</url>
+          <line>75</line>
+          <properties documentPath="C:\Users\1035695\Desktop\.git\GPG222\Assets\Scripts\SpawnManager.cs" containingFunctionPresentation="Method 'CameraSetup_Rpc'">
+            <startOffsets>
+              <option value="2184" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2272" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

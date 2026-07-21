@@ -30,6 +30,7 @@ public class SpawnManager : NetworkBehaviour
         if (NetworkManager.Singleton != null)
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SceneLoadCompleteHandler;
         }
     }
 
@@ -37,18 +38,18 @@ public class SpawnManager : NetworkBehaviour
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
         NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
-        newPlayer.SpawnAsPlayerObject(clientID, true);
-
+        newPlayer.SpawnAsPlayerObject(clientID,true);
+        
+        if (newPlayer != null)
+        {
+            CameraSetup_Rpc(clientID);
+        }
+        
         if (NetworkManager.Singleton.ConnectedClientsList.Count == maxPlayerCount)
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
 
             MenuClose_Rpc();
-        }
-
-        if (newPlayer != null)
-        {
-            CameraSetup_Rpc(clientID);
         }
     }
 
@@ -58,7 +59,6 @@ public class SpawnManager : NetworkBehaviour
         foreach (ulong clientID in clientsCompleted)
         {
             SpawnPlayer(clientID);
-            CameraSetup_Rpc(clientID);
         }
     }
 
@@ -72,15 +72,13 @@ public class SpawnManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void CameraSetup_Rpc(ulong clientID)
     {
-        if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null)
-            return;
-
-        NetworkObject player = NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject;
-        {
-            if (player.IsLocalPlayer)
-            {
-                virtualCamera.Follow = player.transform;
-            }
-        }
+      
+            NetworkObject player = NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject;
+        
+                if (player.IsLocalPlayer)
+                {
+                    virtualCamera.Follow = player.transform;
+                }
+                
     }
 }

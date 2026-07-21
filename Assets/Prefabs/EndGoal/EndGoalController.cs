@@ -38,13 +38,15 @@ namespace Prefabs.EndGoal
 
         [Rpc(SendTo.Server)]
         private void OnServerCompletion_Rpc()
-        { NetworkManager.Singleton.SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single); 
+        {  
             OnClientCompletion_Rpc();
+            NetworkManager.Singleton.SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
         }
         [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
         private void OnClientCompletion_Rpc()
         {
             goalView.LevelCompleted();
+            
         }
         
 
