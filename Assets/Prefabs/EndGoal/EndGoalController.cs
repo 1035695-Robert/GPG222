@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using Unity.Networking.Transport;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Prefabs.EndGoal
 {
@@ -37,7 +38,7 @@ namespace Prefabs.EndGoal
 
         [Rpc(SendTo.Server)]
         private void OnServerCompletion_Rpc()
-        { 
+        { NetworkManager.Singleton.SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single); 
             OnClientCompletion_Rpc();
         }
         [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]

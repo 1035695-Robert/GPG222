@@ -27,14 +27,13 @@ namespace Player.hands
         [Rpc(SendTo.ClientsAndHost)]
         private void HandGrabClient_Rpc(Vector3 hitPoint)
         {
-         
             transform.position = hitPoint + new Vector3(0, 0.5f, 0);
         }
 
 
         private void HandDropServer(NetworkObject player)
         {
-            transform.SetParent(player.transform.Find("hands").transform);
+            transform.SetParent(player.transform);
             HandDropClient_Rpc();
         }
 
@@ -42,7 +41,7 @@ namespace Player.hands
         private void HandDropClient_Rpc()
         {
             
-            transform.localPosition = new Vector3(0, 0, 0.75f);
+            transform.localPosition = Vector3.zero;
            
         }
 

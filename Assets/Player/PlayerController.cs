@@ -49,9 +49,9 @@ namespace Player
         void HandSpawn_Rpc()
         {
                 networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
-                networkHands.SpawnWithOwnership(OwnerClientId);
+                networkHands.SpawnWithOwnership(OwnerClientId,true);
                 handsModel = networkHands.GetComponent<HandsModel>();
-                networkHands.TrySetParent(transform.Find("hands"), false);
+                networkHands.TrySetParent(transform, false);
                 handsModel.Setup();
             
         }
