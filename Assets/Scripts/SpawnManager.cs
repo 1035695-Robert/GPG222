@@ -46,7 +46,7 @@ public class SpawnManager : NetworkBehaviour
         }
 
         if (SceneManager.GetActiveScene().name == "MainMenu")
-            //mainMenuController.CustomisationMenu_Rpc();
+            
             NetworkManager.Singleton.SceneManager.LoadScene("GameHub", loadSceneMode: LoadSceneMode.Single);
         
     }

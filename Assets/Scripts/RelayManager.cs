@@ -34,6 +34,7 @@ public class RelayManager : MonoBehaviour
 
     public void StartClientWithRelay()
     {
+        _ = Initialise();
         _ = StartClientWithRelay(relayCode, "udp");
     }
 
@@ -67,7 +68,7 @@ public class RelayManager : MonoBehaviour
     }
     public async Task<bool> StartClientWithRelay(string code, string connectionType)
     {
-
+      //  await Initialise();
         var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode: code);
         NetworkManager.Singleton.GetComponent<UnityTransport>()
             .SetRelayServerData(allocation.ToRelayServerData(connectionType));

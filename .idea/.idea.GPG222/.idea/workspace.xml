@@ -23,13 +23,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/LobbyManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/ControlInputs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerInteractModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scenes/ColourSelection.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scenes/NetworkSceneLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.playmode@d6d235962e24/Scenarios/Editor/Nodes/Editor/EditorMultiplayerPlaymodeRunNode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.tools@acc3b25185bb/Adapters/Ngo1/Ngo1Adapter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.tools@acc3b25185bb/Common/Runtime/Helpers/RuntimeUpdaterBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
@@ -46,13 +43,6 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/SceneManagement/NetworkSceneManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/SceneManagement/SceneEventData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@aaabf07f880c/Runtime/Spawning/NetworkSpawnManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.authentication@862f5b816622/Runtime/AuthenticationService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/Models/DataObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/Models/Lobby.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/SDK/CreateLobbyOptions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/SDK/ILobbyService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/SDK/LobbyService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/SDK/QuickJoinLobbyOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Relay/SDK/RelayService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.transport@ed7eca02732f/Runtime/Layers/TopLayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.transport@ed7eca02732f/Runtime/UDPNetworkInterface.cs" root0="SKIP_HIGHLIGHTING" />
@@ -65,61 +55,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000014424626" />
-      <entry key="MS500" value="1.025447124399648" />
-      <entry key="S2" value="1.8055584586977778" />
-      <entry key="S5" value="2.956858741130223" />
-      <entry key="S10" value="3.88703981476617" />
-      <entry key="S30" value="6.750613405060248" />
-      <entry key="S60" value="9.422617853693732" />
-      <entry key="M2" value="11.687621357873892" />
-      <entry key="M5" value="13.73513147050731" />
-      <entry key="M10" value="19.718311373782104" />
-      <entry key="M15" value="33.54502632903454" />
-      <entry key="M30" value="95.89332578114787" />
-      <entry key="H1" value="221.0913890446082" />
-      <entry key="H2" value="419.38182549192015" />
-      <entry key="H4" value="702.1307056761287" />
-      <entry key="D1" value="1473.234587208722" />
-      <entry key="W1" value="1757.4818881895778" />
+      <entry key="MS100" value="4.53646512987183E-6" />
+      <entry key="MS500" value="0.08576866482324146" />
+      <entry key="S2" value="0.6872835254558592" />
+      <entry key="S5" value="1.37882855796763" />
+      <entry key="S10" value="2.02372081233013" />
+      <entry key="S30" value="3.0191234829277387" />
+      <entry key="S60" value="3.482089874995833" />
+      <entry key="M2" value="3.9966675278124257" />
+      <entry key="M5" value="6.1719350364249" />
+      <entry key="M10" value="13.841316609816639" />
+      <entry key="M15" value="23.226096158075574" />
+      <entry key="M30" value="51.94110368018543" />
+      <entry key="H1" value="117.83526765530443" />
+      <entry key="H2" value="255.6351367220821" />
+      <entry key="H4" value="485.78129584054204" />
+      <entry key="D1" value="1151.485028914793" />
+      <entry key="W1" value="1395.551763790058" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="3.6578096122907824E-42" />
-      <entry key="MS500" value="5.159934863861366E-9" />
-      <entry key="S2" value="0.008475416603201587" />
-      <entry key="S5" value="0.14834209970706652" />
-      <entry key="S10" value="0.3851520475176869" />
-      <entry key="S30" value="0.7275743896519644" />
-      <entry key="S60" value="0.8529797123878534" />
-      <entry key="M2" value="0.9235901470176475" />
-      <entry key="M5" value="1.0455737351682246" />
-      <entry key="M10" value="2.68106467694117" />
-      <entry key="M15" value="6.2410465657910486" />
-      <entry key="M30" value="19.831759528545614" />
-      <entry key="H1" value="46.16825880536434" />
-      <entry key="H2" value="94.66212648660618" />
-      <entry key="H4" value="173.19215070270874" />
-      <entry key="D1" value="391.1646611114879" />
-      <entry key="W1" value="469.7536849822281" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000086779415" />
+      <entry key="S2" value="1.0096536629669968" />
+      <entry key="S5" value="1.1614630985429408" />
+      <entry key="S10" value="1.4674423976820816" />
+      <entry key="S30" value="2.150579041728733" />
+      <entry key="S60" value="2.521184882714427" />
+      <entry key="M2" value="2.8691333933439713" />
+      <entry key="M5" value="3.62800778284569" />
+      <entry key="M10" value="5.696364934560407" />
+      <entry key="M15" value="8.18288453640654" />
+      <entry key="M30" value="15.912874306919889" />
+      <entry key="H1" value="35.11007049753015" />
+      <entry key="H2" value="78.02439731153976" />
+      <entry key="H4" value="150.1166879273628" />
+      <entry key="D1" value="345.41479065620837" />
+      <entry key="W1" value="413.82920170303487" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="6.5503974498725426E-6" />
-      <entry key="MS500" value="0.10742498146800374" />
-      <entry key="S2" value="1.2596675723930861" />
-      <entry key="S5" value="2.7563925271685155" />
-      <entry key="S10" value="4.042434150072952" />
-      <entry key="S30" value="7.347495018522887" />
-      <entry key="S60" value="10.18466920975241" />
-      <entry key="M2" value="12.55464883051066" />
-      <entry key="M5" value="14.753735973678786" />
-      <entry key="M10" value="22.377414976794537" />
-      <entry key="M15" value="39.759185682743144" />
-      <entry key="M30" value="115.68691525234244" />
-      <entry key="H1" value="267.21705482490245" />
-      <entry key="H2" value="514.002622938568" />
-      <entry key="H4" value="875.2858983274463" />
-      <entry key="D1" value="1864.3849674873486" />
-      <entry key="W1" value="2227.2330951475847" />
+      <entry key="MS100" value="8.929037684900611E-4" />
+      <entry key="MS500" value="0.3002561156547362" />
+      <entry key="S2" value="1.25751776515886" />
+      <entry key="S5" value="2.222531631877916" />
+      <entry key="S10" value="3.2611286523234275" />
+      <entry key="S30" value="5.048849731098843" />
+      <entry key="S60" value="5.9309902171126065" />
+      <entry key="M2" value="6.823423473829646" />
+      <entry key="M5" value="9.77581410476377" />
+      <entry key="M10" value="19.515776871556973" />
+      <entry key="M15" value="31.38687408577795" />
+      <entry key="M30" value="67.83177699693694" />
+      <entry key="H1" value="152.92091005218327" />
+      <entry key="H2" value="333.631681544441" />
+      <entry key="H4" value="635.8695888564413" />
+      <entry key="D1" value="1496.8878008633335" />
+      <entry key="W1" value="1809.3788646433904" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -134,31 +124,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "develop",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.72f1\Editor\Unity.exe" />
@@ -228,8 +218,8 @@
       <workItem from="1782876156260" duration="602000" />
       <workItem from="1784004887359" duration="7854000" />
       <workItem from="1784180054113" duration="9956000" />
-      <workItem from="1784602135691" duration="23083000" />
-      <workItem from="1784762626844" duration="9415000" />
+      <workItem from="1784602135691" duration="5281000" />
+      <workItem from="1784775253633" duration="4326000" />
     </task>
     <servers />
   </component>
@@ -262,19 +252,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SpawnManager.cs</url>
-          <line>67</line>
-          <properties documentPath="C:\Users\1035695\Desktop\.git\GPG222\Assets\Scripts\SpawnManager.cs" containingFunctionPresentation="Method 'CameraSetup_Rpc'">
-            <startOffsets>
-              <option value="2158" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2159" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
