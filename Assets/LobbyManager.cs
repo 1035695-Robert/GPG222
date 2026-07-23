@@ -7,36 +7,35 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 
-
-
 public class LobbyManager : MonoBehaviour
 {
-    [SerializeField]private CreateLobbyOptions _options = new CreateLobbyOptions();
+    [SerializeField] private CreateLobbyOptions _options = new CreateLobbyOptions();
     [SerializeField] RelayManager relayManager;
 
-   [SerializeField] private string lobbyName;
+    [SerializeField] private string lobbyName;
     [SerializeField] private int maxPlayers;
     [SerializeField] private string joinCode;
 
     public void HostLobby()
     {
-        CreateLobby();
+        _ = CreateLobby();
     }
 
     public void ClientQuickJoin()
     {
-        QuickJoin();
+        _ = QuickJoin();
     }
+
     private async Task CreateLobby()
     {
-        
         await relayManager.StartHostWithRelay(maxPlayers, "udp");
 
         _options.IsPrivate = false;
 
         // Very spaced out creation of custom data for the lobby. In this the relay code (but could be lobby name, player count, map name etc)
         _options.Data = new Dictionary<string, DataObject>();
-        DataObject dataObject = new DataObject(DataObject.VisibilityOptions.Public, relayManager.joinCode, DataObject.IndexOptions.S1);
+        DataObject dataObject = new DataObject(DataObject.VisibilityOptions.Public, relayManager.joinCode,
+            DataObject.IndexOptions.S1);
         _options.Data.Add("RelayCode", dataObject);
 
 
@@ -47,6 +46,7 @@ public class LobbyManager : MonoBehaviour
         {
             Debug.Log("CREATED LOBBY : " + lobby.Name);
         }
+
         // Heartbeat the lobby every 15 seconds.
         StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
     }
@@ -60,6 +60,7 @@ public class LobbyManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(waitTimeSeconds);
         }
     }
+
     private async Task QuickJoin()
     {
         await relayManager.Initialise();
@@ -84,11 +85,11 @@ public class LobbyManager : MonoBehaviour
             if (lobby != null)
             {
                 Debug.Log("JOINED LOBBY : " + lobby.Name);
-        
+
                 foreach (KeyValuePair<string, DataObject> keyValuePair in lobby.Data)
                 {
-                    Debug.Log("Key = "+keyValuePair.Key);
-                    Debug.Log("Value = "+keyValuePair.Value.Value);
+                    Debug.Log("Key = " + keyValuePair.Key);
+                    Debug.Log("Value = " + keyValuePair.Value.Value);
                 }
 
 
@@ -100,7 +101,4 @@ public class LobbyManager : MonoBehaviour
             Debug.Log(e);
         }
     }
-
-
-
 }

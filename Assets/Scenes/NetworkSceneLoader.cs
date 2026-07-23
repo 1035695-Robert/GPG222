@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class NetworkSceneLoader : MonoBehaviour
     {
 
-        public void OnLevelSelection()
+        public void OnLevelSelection(string sceneName)
         {
-            NetworkManager.Singleton.SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
     }
 

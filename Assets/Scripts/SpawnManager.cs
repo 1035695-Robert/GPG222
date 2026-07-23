@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Player.hands;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,7 +8,7 @@ public class SpawnManager : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineCamera virtualCamera;
-
+    [SerializeField] MainMenuController mainMenuController;
 
     [Header("PlayerManager")] [SerializeField]
     private GameObject canvasUI;
@@ -21,35 +20,37 @@ public class SpawnManager : NetworkBehaviour
         base.OnNetworkSpawn();
         if (!NetworkManager.IsServer) return;
 
-        NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayer;
+        NetworkManager.Singleton.OnClientConnectedCallback += ConnectedClients;
+
         NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneLoadCompleteHandler;
     }
 
-    public override void OnNetworkDespawn()
-    {
-        if (NetworkManager.Singleton != null)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
-            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SceneLoadCompleteHandler;
-        }
-    }
-
-    void SpawnPlayer(ulong clientID)
+    private void ConnectedClients(ulong clientID)
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
-        NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
-        newPlayer.SpawnAsPlayerObject(clientID, true);
-
-        CameraSetup_Rpc(clientID);
-
-        if (NetworkManager.Singleton.ConnectedClientsList.Count == maxPlayerCount &&
-            SceneManager.GetActiveScene().name == "MainMenu")
+        if (NetworkManager.Singleton.ConnectedClientsList.Count >= maxPlayerCount)
         {
-            NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
-            MainMenuController mmc = GetComponent<MainMenuController>();
-            mmc.CustomisationMenu_Rpc();
+            SpawnPlayer();
         }
     }
+
+
+    void SpawnPlayer()
+    {
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
+            newPlayer.SpawnAsPlayerObject(client.ClientId, true);
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+                CameraSetup_Rpc(client.ClientId);
+        }
+
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            //mainMenuController.CustomisationMenu_Rpc();
+            NetworkManager.Singleton.SceneManager.LoadScene("GameHub", loadSceneMode: LoadSceneMode.Single);
+        
+    }
+
 
     private void SceneLoadCompleteHandler(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted,
         List<ulong> clientsTimedOut)
@@ -57,15 +58,9 @@ public class SpawnManager : NetworkBehaviour
         Debug.Log("newScene");
         foreach (ulong clientID in clientsCompleted)
         {
-            SpawnPlayer(clientID);
+            ConnectedClients(clientID);
         }
     }
-
-    // [Rpc(SendTo.ClientsAndHost)]
-    // private void MenuClose_Rpc()
-    // {
-    //     canvasUI.SetActive(false);
-    // }
 
 
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
@@ -76,6 +71,15 @@ public class SpawnManager : NetworkBehaviour
         if (player.IsLocalPlayer)
         {
             virtualCamera.Follow = player.transform;
+        }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= ConnectedClients;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SceneLoadCompleteHandler;
         }
     }
 }
