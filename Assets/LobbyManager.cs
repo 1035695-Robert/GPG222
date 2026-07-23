@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class LobbyManager : MonoBehaviour
@@ -48,14 +49,16 @@ public class LobbyManager : MonoBehaviour
         }
 
         // Heartbeat the lobby every 15 seconds.
-        StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
+
+        if (lobby != null) StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
+        else Debug.LogWarning("noLobby");
     }
 
     IEnumerator HeartbeatLobbyCoroutine(string lobbyId, float waitTimeSeconds)
     {
         while (true)
         {
-            // Debug.Log("Heartbeating lobby "+Random.Range(0,1000));
+             //Debug.Log("Heartbeating lobby "+ Random.Range(0,1000));
             LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
             yield return new WaitForSecondsRealtime(waitTimeSeconds);
         }

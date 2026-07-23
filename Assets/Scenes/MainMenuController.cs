@@ -6,24 +6,17 @@ using UnityEngine.UI;
 
 public class MainMenuController : NetworkBehaviour
 {
-    [SerializeField] private GameObject lobbyUI;
-    [SerializeField] private GameObject customisationUI;
+    [SerializeField] private GameObject joinlobbyUI;
+    [SerializeField] private GameObject inLobbyUI;
 
-
-    [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
-    public void CustomisationMenu_Rpc()
+[Rpc(SendTo.ClientsAndHost)]
+    public void JoinedLobby_Rpc()
     {
-        if (IsServer)
-            lobbyUI.SetActive(false);
-        customisationUI.SetActive(true);
-    }
-
-
-    private void LoadLevel()
-    {
-        if (IsHost)
+        if(!IsClient) return;
         {
-           
+            Debug.Log("Joined Lobby");
+            joinlobbyUI.SetActive(false);
+            inLobbyUI.SetActive(true);
         }
     }
 }

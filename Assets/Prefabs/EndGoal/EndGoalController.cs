@@ -40,7 +40,7 @@ namespace Prefabs.EndGoal
         private void OnServerCompletion_Rpc()
         {  
             OnClientCompletion_Rpc();
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene("GameHub",LoadSceneMode.Single);
         }
         [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
         private void OnClientCompletion_Rpc()
