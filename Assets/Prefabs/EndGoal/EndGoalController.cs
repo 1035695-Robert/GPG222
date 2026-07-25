@@ -22,12 +22,7 @@ namespace Prefabs.EndGoal
             moveableObjectCollider = movableObject.GetComponentsInChildren<Collider>(true);
             zoneCollider = GetComponent<BoxCollider>();
 
-            goalModel.IsCompleted += OnServerCompletion_Rpc;
-        }
-
-        public void AddPlayer(NetworkConnection newPlayer)
-        {
-            
+            goalModel.IsCompleted += OnServerCompletion;
         }
 
         void OnTriggerStay(Collider other)
@@ -36,8 +31,8 @@ namespace Prefabs.EndGoal
             goalModel.IsObjectFullyInArea(zoneCollider, moveableObjectCollider);
         }
 
-        [Rpc(SendTo.Server)]
-        private void OnServerCompletion_Rpc()
+        
+        private void OnServerCompletion()
         {  
             OnClientCompletion_Rpc();
             NetworkManager.Singleton.SceneManager.LoadScene("GameHub",LoadSceneMode.Single);
@@ -46,14 +41,13 @@ namespace Prefabs.EndGoal
         private void OnClientCompletion_Rpc()
         {
             goalView.LevelCompleted();
-            
         }
         
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
-            goalModel.IsCompleted -= OnServerCompletion_Rpc;
+            goalModel.IsCompleted -= OnServerCompletion;
         }
     }
 }

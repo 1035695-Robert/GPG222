@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,15 +9,14 @@ public class MainMenuController : NetworkBehaviour
 {
     [SerializeField] private GameObject joinlobbyUI;
     [SerializeField] private GameObject inLobbyUI;
-
-[Rpc(SendTo.ClientsAndHost)]
+    
+    [Rpc(SendTo.ClientsAndHost)]
     public void JoinedLobby_Rpc()
     {
-        if(!IsClient) return;
-        {
-            Debug.Log("Joined Lobby");
             joinlobbyUI.SetActive(false);
             inLobbyUI.SetActive(true);
-        }
+            //for (int i = 0; i < waitingPlayerUI.Length; i++)
+         
     }
 }
+

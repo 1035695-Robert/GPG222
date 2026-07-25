@@ -15,18 +15,17 @@ public enum Colours
     Black
 }
 
-public class ColourSelection : NetworkBehaviour
+public class ColourSelection : MonoBehaviour
 {
     [SerializeField] public Colours colour;
 
-    private Renderer PlayerBot;
+    private Renderer playerBot;
 
     public void ColourSelected(int colourIndex)
     {
-        if (!IsLocalPlayer) return;
         colour = (Colours)colourIndex;
 
-        PlayerBot = GetComponent<Renderer>();
+        playerBot = GetComponent<Renderer>();
         BodyColour_Rpc();
     }
 
@@ -36,34 +35,34 @@ public class ColourSelection : NetworkBehaviour
         switch (colour)
         {
             case Colours.Grey:
-                PlayerBot.material.color = Color.grey;
+                playerBot.material.color = Color.grey;
                 break;
             case Colours.Red:
-                PlayerBot.material.color = Color.red;
+                playerBot.material.color = Color.red;
                 break;
             case Colours.Green:
-                PlayerBot.material.color = Color.green;
+                playerBot.material.color = Color.green;
                 break;
             case Colours.Blue:
-                PlayerBot.material.color = Color.blue;
+                playerBot.material.color = Color.blue;
                 break;
             case Colours.Yellow:
-                PlayerBot.material.color = Color.yellow;
+                playerBot.material.color = Color.yellow;
                 break;
             case Colours.Orange:
-                PlayerBot.material.color = Color.yellow;
+                playerBot.material.color = Color.yellow;
                 break;
             case Colours.Magenta:
-                PlayerBot.material.color = Color.magenta;
+                playerBot.material.color = Color.magenta;
                 break;
             case Colours.Cyan:
-                PlayerBot.material.color = Color.cyan;
+                playerBot.material.color = Color.cyan;
                 break;
             case Colours.White:
-                PlayerBot.material.color = Color.white;
+                playerBot.material.color = Color.white;
                 break;
             case Colours.Black:
-                PlayerBot.material.color = Color.black;
+                playerBot.material.color = Color.black;
                 break;
         }
     }
