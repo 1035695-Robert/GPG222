@@ -6,17 +6,18 @@ namespace Player.hands
     public class HandsView : NetworkBehaviour
     {
         [SerializeField] private HandsModel handModel;
-
-       
+        [SerializeField] private PlayerColourModel colourState;
+        [SerializeField] private Renderer leftHandRenderer;
+        [SerializeField] private Renderer rightHandRenderer;
+        
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-
             handModel.GrabClient += HandGrabServer;
             handModel.Drop += HandDropServer;
         }
-
+        
 
         private void HandGrabServer(NetworkObject grabObject, Vector3 hitPoint)
         {
@@ -40,9 +41,7 @@ namespace Player.hands
         [Rpc(SendTo.ClientsAndHost)]
         private void HandDropClient_Rpc()
         {
-            
             transform.localPosition = Vector3.zero;
-           
         }
 
         public override void OnNetworkDespawn()

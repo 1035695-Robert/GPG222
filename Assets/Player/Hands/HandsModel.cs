@@ -13,7 +13,6 @@ namespace Player.hands
         [SerializeField] private NetworkObject player;
         [SerializeField] private Rigidbody handRigidbody;
 
-
         [SerializeField] private GameObject target;
         [SerializeField] private Vector3 targetPoint;
 
@@ -21,10 +20,11 @@ namespace Player.hands
 
         public delegate void DropHandler(NetworkObject target);
 
+        
         public event GrabHandler GrabClient;
 
         public event DropHandler Drop;
-
+        
         public void Setup()
         {
             if (!IsServer) return;
@@ -33,6 +33,7 @@ namespace Player.hands
             player = transform.root.GetComponent<NetworkObject>();
             interactModel.OnHandsEvent += GrabJointInformation;
         }
+        
 
         private void GrabJointInformation(RaycastHit hitInfo)
         {

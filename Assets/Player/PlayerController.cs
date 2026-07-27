@@ -40,8 +40,12 @@ namespace Player
             _playerInputs.Player.Move.performed += PlayerMove;
             _playerInputs.Player.Move.canceled += PlayerMove;
             _playerInputs.Player.Interact.performed += Interaction;
+            
+            
+
             // _playerInputs.Player.HandRotation.performed += RotateHands;
             // _playerInputs.Player.HandRotation.canceled += RotateHands;
+            
             _playerInputs.Enable();
         }
         
@@ -49,9 +53,10 @@ namespace Player
         void HandSpawn_Rpc()
         {
                 networkHands = Instantiate(playerHands).GetComponent<NetworkObject>();
-                networkHands.SpawnWithOwnership(OwnerClientId,true);
+                networkHands.SpawnAsPlayerObject(OwnerClientId,true);
                 handsModel = networkHands.GetComponent<HandsModel>();
                 networkHands.TrySetParent(transform, false);
+               
                 handsModel.Setup();
             
         }

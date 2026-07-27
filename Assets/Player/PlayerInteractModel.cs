@@ -18,17 +18,20 @@ namespace Player
 
         [SerializeField] private ConfigurableJoint playerJoint;
 
-            [SerializeField] public NetworkVariable<bool> isHolding = new NetworkVariable<bool>(false,
+        public NetworkVariable<bool> isHolding = new NetworkVariable<bool>(false,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
 
+       
+
+        
         [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
         public void Interact_Rpc()
         {
             if (!isHolding.Value) TryPickUp();
             else DropObject();
         }
-   
+
         private void TryPickUp()
         {
             Debug.Log("TryPickUp");
@@ -103,6 +106,7 @@ namespace Player
             ClientDrop_Rpc();
             isHolding.Value = false;
         }
+
         [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Unreliable)]
         private void ClientDrop_Rpc()
         {

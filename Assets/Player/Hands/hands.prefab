@@ -266,6 +266,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   handModel: {fileID: -6194245374490149101}
+  colourState: {fileID: 0}
+  leftHandRenderer: {fileID: 5583641876622685232}
+  rightHandRenderer: {fileID: 9166092154899559317}
 --- !u!54 &6089841558194397778
 Rigidbody:
   m_ObjectHideFlags: 0

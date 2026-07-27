@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,6 @@ public class SpawnManager : NetworkBehaviour
     [SerializeField] private Camera[] rendererCameras;
 
     [SerializeField] private CinemachineCamera virtualCamera;
-    [SerializeField] MainMenuController mainMenuController;
 
     [Header("PlayerManager")] [SerializeField]
     private GameObject canvasUI;
@@ -32,33 +30,41 @@ public class SpawnManager : NetworkBehaviour
     private void ConnectedClients(ulong clientID)
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            return;
+        }
 
         if (NetworkManager.Singleton.ConnectedClientsList.Count >= maxPlayerCount)
         {
-            SpawnPlayer();
+            SpawnPlayer_Rpc();
         }
     }
 
     [SerializeField] private Transform[] spawnPoints;
-    private int spriteCount;
-
     [SerializeField] private int usedCount;
 
-    void SpawnPlayer()
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
+    void SpawnPlayer_Rpc()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            //starts game before the characters can spawn
-            mainMenuController.JoinedLobby_Rpc();
-            return;
-        }
-
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
             //when loading new scene it will create new player characters and spawn them on their own designated Spawn points
             NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
 
 
+            newPlayer.SpawnAsPlayerObject(client.ClientId, true);
+           PlayerColourManager.Instance.SetColourOnSceneLoad(client.ClientId,"body");
+            if(virtualCamera!= null) CameraSetup_Rpc(client.ClientId);
+            
+            Spawn(newPlayer);
+        }
+    }
+
+    void Spawn(NetworkObjectReference newPlayerReference)
+    {
+        if (newPlayerReference.TryGet(out NetworkObject newPlayer))
+        {
             for (int i = 0; i < spawnPoints.Length; i++)
             {
                 if (i == usedCount)
@@ -68,17 +74,8 @@ public class SpawnManager : NetworkBehaviour
                     break;
                 }
             }
-
-            newPlayer.SpawnAsPlayerObject(client.ClientId, true);
-            if (SceneManager.GetActiveScene().name != "MainMenu")
-                CameraSetup_Rpc(client.ClientId);
         }
     }
-
-    private void SpawnPoint(NetworkObjectReference playerRef)
-    {
-    }
-
 
     private void SceneLoadCompleteHandler(string sceneName, LoadSceneMode loadSceneMode,
         List<ulong> clientsCompleted,
@@ -90,9 +87,6 @@ public class SpawnManager : NetworkBehaviour
             ConnectedClients(clientID);
         }
     }
-
-    private int displayCount;
-
 
     [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void CameraSetup_Rpc(ulong clientID)
