@@ -76,28 +76,27 @@ public class PlayerColourManager : NetworkBehaviour
         switch (colourInput)
         {
             default:
-                SetColour_Rpc(Color.gray, id, part); break;
+                SetColour(Color.gray, id, part); break;
             case "red":
-                SetColour_Rpc(Color.red, id, part); break;
-            case "green":
-                SetColour_Rpc(Color.green, id, part); break;
+                SetColour(Color.red, id, part); break;
+            case "lime":
+                SetColour(Color.green, id, part); break;
             case "blue":
-                SetColour_Rpc(Color.blue, id, part); break;
+                SetColour(Color.blue, id, part); break;
             case "yellow":
-                SetColour_Rpc(Color.yellow, id, part); break;
+                SetColour(Color.yellow, id, part); break;
             case "magenta":
-                SetColour_Rpc(Color.magenta, id, part); break;
+                SetColour(Color.magenta, id, part); break;
             case "cyan":
-                SetColour_Rpc(Color.cyan, id, part); break;
+                SetColour(Color.cyan, id, part); break;
             case "white":
-                SetColour_Rpc(Color.white, id, part); break;
+                SetColour(Color.white, id, part); break;
             case "black":
-                SetColour_Rpc(Color.black, id, part); break;
+                SetColour(Color.black, id, part); break;
         }
     }
-
-    [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
-    private void SetColour_Rpc(Color colour, ulong playerID, string part)
+    
+    private void SetColour(Color colour, ulong playerID, string part)
     {
         if (connectedPlayers.Contains(playerID))
         {

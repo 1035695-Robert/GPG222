@@ -1,16 +1,22 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class NetworkSceneLoader : NetworkBehaviour
 {
     [SerializeField] private string selectedScene1, selectedScene2;
+    [SerializeField] private Image[] outlineSelection;
     
     
     public void OnLevelSelection(string sceneName)
     {
+        if (IsClient)
+        {
+            Debug.Log("client");
             ButtonPressed_Rpc(sceneName);
+        }
     }
 
     private int count;
@@ -32,9 +38,9 @@ public class NetworkSceneLoader : NetworkBehaviour
                 count = 0;
                 break;
         }
-          
-            
     }
+    
+    
 
     private void LoadScene(string sceneName)
     {

@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1185,10 +1185,10 @@ RectTransform:
   - {fileID: 7475970297500206484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 455, y: 880}
+  m_SizeDelta: {x: 455, y: 760}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8947190979631050423
 CanvasRenderer:
@@ -1305,6 +1305,8 @@ MonoBehaviour:
   handColourButtons:
   - {fileID: 2000281923218353282}
   - {fileID: 2137912193476430356}
+  displayScreen: {fileID: 1629298357690662161}
+  displayName: {fileID: 4297298766803599195}
 --- !u!114 &6210600869158736675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,10 +1607,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6209447477375482285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6127045955120880040
 CanvasRenderer:
@@ -1901,7 +1903,7 @@ GameObject:
   - component: {fileID: 7645256169598504131}
   - component: {fileID: 7303866067420433291}
   m_Layer: 5
-  m_Name: green
+  m_Name: lime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
