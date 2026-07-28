@@ -29,7 +29,7 @@ public class PlayerColourManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
-
+    
        
         NetworkManager.Singleton.OnClientConnectedCallback += ConnectedClient;
     }
@@ -57,13 +57,14 @@ public class PlayerColourManager : NetworkBehaviour
                     switch (part)
                     {
                         case "body": 
-                            playerColour.SetColour_Rpc(playerBodyColour[(int)clientId], "body");
-                            break;
+                            playerColour.networkBodyColour.Value = playerBodyColour[(int)clientId];
+                            return;
                         case "hand":
-                            playerColour.SetColour_Rpc(playerHandsColour[(int)clientId], "hand");
-                            break;
+                            playerColour.networkHandsColour.Value = playerHandsColour[(int)clientId];
+                            return;
                             
                     }
+                    Debug.Log("NO player connected");
                 }
             }
         }

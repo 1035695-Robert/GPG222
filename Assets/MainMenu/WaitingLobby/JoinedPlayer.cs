@@ -1,3 +1,4 @@
+using Player;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -12,6 +13,8 @@ public class JoinedPlayer : NetworkBehaviour
     private NetworkSceneLoader _sceneLoader;
     [SerializeField] private Image displayScreen;
 
+    [SerializeField] private PlayerColourModel colourState;
+
     //networkVariables can not be strings use FixedStrings then convert .ToString to update TMPro
     public NetworkVariable<FixedString128Bytes> playerName = new NetworkVariable<FixedString128Bytes>("[Player]",
         NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -20,8 +23,11 @@ public class JoinedPlayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        ChangeColourServer_Rpc(colourState.networkBodyColour.Value);
         if (!IsOwner) return;
+        
         playerName.OnValueChanged += ChangeName_Rpc;
+        colourState.networkBodyColour.OnValueChanged += OnColourChange;
         SetBaseName_Rpc();
         joinButton.interactable = true;
         _sceneLoader = GameObject.Find("MenuManager").GetComponent<NetworkSceneLoader>();
@@ -38,6 +44,22 @@ public class JoinedPlayer : NetworkBehaviour
         // {
         //     colourButton.onClick.AddListener(() =>PlayerColourManager.Instance.BodyColour(colourButton.gameObject.name, OwnerClientId,"hand"));
         // }
+    }
+
+    private void OnColourChange(Color previousValue, Color newValue)
+    {
+            ChangeColourServer_Rpc(newValue);
+    }
+    [Rpc(SendTo.Server)]
+    private void ChangeColourServer_Rpc(Color newValue)
+    {
+       ChangeColour_Rpc(newValue);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ChangeColour_Rpc(Color newValue)
+    {
+        displayScreen.color = newValue;
     }
 
     [Rpc(SendTo.Server)]
@@ -70,20 +92,6 @@ public class JoinedPlayer : NetworkBehaviour
     private void BodyColour_Rpc(string colour)
     {
         PlayerColourManager.Instance.BodyColour(colour, OwnerClientId, "body");
-        if (ColorUtility.TryParseHtmlString(colour, out Color selectedColour))
-        {
-            Debug.Log(selectedColour.ToString());
-            DisplayColour_Rpc(selectedColour);
-        }
-        else
-        {
-            Debug.LogError("body colour not found");
-        }
-    }
-
-    [Rpc(SendTo.ClientsAndHost)]
-    private void DisplayColour_Rpc(Color colour)
-    {
-        displayScreen.color = colour;
+        PlayerColourManager.Instance.SetColourOnSceneLoad(OwnerClientId, "body");
     }
 }

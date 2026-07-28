@@ -23,7 +23,7 @@ public class JoinedLobby : NetworkBehaviour
     private void RequestJoin_Rpc(ulong clientId)
     {
         NetworkObject networkPlayerUI = Instantiate(localPlayerUI).GetComponent<NetworkObject>();
-        networkPlayerUI.SpawnWithOwnership(clientId, true);
+        networkPlayerUI.SpawnAsPlayerObject(clientId, true);
         networkPlayerUI.TrySetParent(localUi.transform, false);
         
     }

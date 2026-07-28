@@ -267,10 +267,10 @@
           <line>62</line>
           <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Assets\PlayerColourManager.cs" containingFunctionPresentation="Method 'SetColourOnSceneLoad'">
             <startOffsets>
-              <option value="1841" />
+              <option value="1849" />
             </startOffsets>
             <endOffsets>
-              <option value="1910" />
+              <option value="1922" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="6" />
