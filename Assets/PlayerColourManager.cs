@@ -10,7 +10,8 @@ public class PlayerColourManager : NetworkBehaviour
     public List<ulong> connectedPlayers = new List<ulong>();
     public List<Color> playerBodyColour = new List<Color>();
     public List<Color> playerHandsColour = new List<Color>();
-    
+
+
     
 
     private void Awake()

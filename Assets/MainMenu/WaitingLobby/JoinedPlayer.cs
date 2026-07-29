@@ -38,6 +38,7 @@ public class JoinedPlayer : NetworkBehaviour
 
         foreach (var colourButton in bodyColourButtons)
         {
+            colourButton.interactable = true;
             colourButton.onClick.AddListener(() => BodyColour_Rpc(colourButton.gameObject.name));
         }
         // foreach (var colourButton in handColourButtons)
@@ -85,7 +86,7 @@ public class JoinedPlayer : NetworkBehaviour
     void Clicked()
     {
         joinButton.interactable = false;
-        _sceneLoader.OnLevelSelection("GameHub");
+        NetworkSceneLoader.Instance.OnLevelSelection("GameHub");
     }
 
     [Rpc(SendTo.Server)]

@@ -1,15 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 
 public class NetworkSceneLoader : NetworkBehaviour
 {
-    [SerializeField] private string selectedScene1, selectedScene2;
-    [SerializeField] private Image[] outlineSelection;
+    private Dictionary<string, int> _selectedScene = new Dictionary<string, int>();
+    private Lobby _lobby;
+
+    public static NetworkSceneLoader Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     
-    
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            GetLobby();
+        }
+    }
+
+    private async void GetLobby()
+    {
+        try
+        {
+            _lobby =  await LobbyService.Instance.GetLobbyAsync(HostManager.Instance.lobbyId);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw; 
+        }
+    }
+
     public void OnLevelSelection(string sceneName)
     {
         if (IsClient)
@@ -19,34 +58,37 @@ public class NetworkSceneLoader : NetworkBehaviour
         }
     }
 
-    private int count;
-   [Rpc(SendTo.Server)]
+    
+    [Rpc(SendTo.Server)]
     private void ButtonPressed_Rpc(string sceneName)
     {
-        switch (count)
+        if (_selectedScene.ContainsKey(sceneName))
         {
-            case 0:
-                selectedScene1 = sceneName;
-                count++;
-                break;
-            case 1:
-                selectedScene2 = sceneName;
-                if (selectedScene1 == selectedScene2)
-                {
-                    LoadScene(sceneName);
-                }
-                count = 0;
-                break;
+            _selectedScene[sceneName]++;
+            Debug.Log(_selectedScene.Count);
+            if (_selectedScene[sceneName] == _lobby.MaxPlayers)
+            {
+                _selectedScene.Clear();
+                LoadScene(sceneName);
+                
+            }
+        }
+        else
+        {
+            _selectedScene.Add(sceneName, 1);
+            
+        }
+        foreach (KeyValuePair<string, int> entry in _selectedScene)
+        {
+            Debug.Log($"Scene {entry.Key}: {entry.Value}//{_lobby.MaxPlayers}");
         }
     }
-    
-    
+
 
     private void LoadScene(string sceneName)
     {
         if (IsServer)
         {
-            Debug.Log(selectedScene2);
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
     }

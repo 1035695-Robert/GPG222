@@ -10,21 +10,44 @@ public class JoinedLobby : NetworkBehaviour
     [SerializeField] private GameObject joinLobbyUI;
     [SerializeField] public GameObject localUi;
 
+    private NetworkList<PlayerColourSelectState> _players;
+
+    private void Awake()
+    {
+        _players = new NetworkList<PlayerColourSelectState>();
+    }
+
     public override void OnNetworkSpawn()
     {
-        Debug.Log("joined");
+        if (!IsClient) return;
         localUi.SetActive(true);
         joinLobbyUI.SetActive(false);
-        RequestJoin_Rpc(NetworkManager.Singleton.LocalClientId);
         
+        if (!IsServer) return;
+        Debug.Log("joined");
+        
+        NetworkManager.Singleton.OnClientConnectedCallback += ClientConnectedHandler;
+        NetworkManager.Singleton.OnClientDisconnectCallback += CLientDisconnectedHandler;
     }
     
-    [Rpc(SendTo.Server)]
-    private void RequestJoin_Rpc(ulong clientId)
+    public override void OnNetworkDespawn()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback -= ClientConnectedHandler;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= CLientDisconnectedHandler;
+    }
+
+    private void ClientConnectedHandler(ulong clientId)
     {
         NetworkObject networkPlayerUI = Instantiate(localPlayerUI).GetComponent<NetworkObject>();
         networkPlayerUI.SpawnAsPlayerObject(clientId, true);
         networkPlayerUI.TrySetParent(localUi.transform, false);
-        
     }
+
+    private void CLientDisconnectedHandler(ulong clientId)
+    {
+       
+    }
+
+   
+
 }

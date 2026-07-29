@@ -30,17 +30,21 @@ public class SpawnManager : NetworkBehaviour
     private void ConnectedClients(ulong clientID)
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
-        if (SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            return;
-        }
-
         if (NetworkManager.Singleton.ConnectedClientsList.Count >= maxPlayerCount)
         {
             SpawnPlayer_Rpc();
         }
     }
-
+    private void SceneLoadCompleteHandler(string sceneName, LoadSceneMode loadSceneMode,
+        List<ulong> clientsCompleted,
+        List<ulong> clientsTimedOut)
+    {
+        Debug.Log("newScene");
+        foreach (ulong clientID in clientsCompleted)
+        {
+            ConnectedClients(clientID);
+        }
+    }
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int usedCount;
 
@@ -51,7 +55,7 @@ public class SpawnManager : NetworkBehaviour
         {
             //when loading new scene it will create new player characters and spawn them on their own designated Spawn points
             NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
-           
+
             for (int i = 0; i < spawnPoints.Length; i++)
             {
                 if (i == usedCount)
@@ -61,23 +65,10 @@ public class SpawnManager : NetworkBehaviour
                     break;
                 }
             }
-            
-            newPlayer.SpawnAsPlayerObject(client.ClientId, true);
-           PlayerColourManager.Instance.SetColourOnSceneLoad(client.ClientId,"body");
-            if(virtualCamera!= null) CameraSetup_Rpc(client.ClientId);
-            
-            
-        }
-    }
 
-    private void SceneLoadCompleteHandler(string sceneName, LoadSceneMode loadSceneMode,
-        List<ulong> clientsCompleted,
-        List<ulong> clientsTimedOut)
-    {
-        Debug.Log("newScene");
-        foreach (ulong clientID in clientsCompleted)
-        {
-            ConnectedClients(clientID);
+            newPlayer.SpawnAsPlayerObject(client.ClientId, true);
+            PlayerColourManager.Instance.SetColourOnSceneLoad(client.ClientId, "body");
+            if (virtualCamera != null) CameraSetup_Rpc(client.ClientId);
         }
     }
 
