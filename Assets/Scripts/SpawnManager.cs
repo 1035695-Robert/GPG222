@@ -55,7 +55,6 @@ public class SpawnManager : NetworkBehaviour
         {
             //when loading new scene it will create new player characters and spawn them on their own designated Spawn points
             NetworkObject newPlayer = Instantiate(playerPrefab).GetComponent<NetworkObject>();
-
             for (int i = 0; i < spawnPoints.Length; i++)
             {
                 if (i == usedCount)
@@ -65,7 +64,6 @@ public class SpawnManager : NetworkBehaviour
                     break;
                 }
             }
-
             newPlayer.SpawnAsPlayerObject(client.ClientId, true);
             PlayerColourManager.Instance.SetColourOnSceneLoad(client.ClientId, "body");
             if (virtualCamera != null) CameraSetup_Rpc(client.ClientId);

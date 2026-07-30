@@ -7,7 +7,7 @@ public class HostLobbySettings : MonoBehaviour
 {
     [SerializeField] private TMP_InputField lobbyNameInput;
 
-    [SerializeField] private Button[] lobbyState;
+    [SerializeField] private Toggle isPrivate;
     [SerializeField] private Button startButton;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Image invalidPasswordImage;
@@ -19,12 +19,7 @@ public class HostLobbySettings : MonoBehaviour
         //update Lobby Name
         lobbyNameInput.onEndEdit.AddListener(UpdateLobbyName);
 
-        foreach (Button state in lobbyState)
-        {
-            state.onClick.AddListener(() => ChangeLobbyState(state.name));
-        }
-
-        passwordInput.onEndEdit.AddListener(CheckAndUpdatePassword);
+        isPrivate.onValueChanged.AddListener(ChangeLobbyState);
 
         foreach (Button count in maxPlayers)
         {
@@ -32,46 +27,16 @@ public class HostLobbySettings : MonoBehaviour
         }
     }
 
-    private void CheckAndUpdatePassword(string password)
-    {
-        if (HostManager.Instance.privateState)
-        {
-            if (password.Length < 8 || password.Length > 20)
-            {
-                passwordInput.text = "";
-                invalidPasswordImage.color = Color.red;
-            }
-            else
-            {
-                HostManager.Instance.passwordText = password;
-                invalidPasswordImage.color = Color.green;
-                startButton.interactable = true;
-            }
-        }
-    }
 
     private void UpdateLobbyName(string text)
     {
         HostManager.Instance.lobbyName = text;
     }
 
-    private void ChangeLobbyState(string stateName)
+    private void ChangeLobbyState(bool state)
     {
-        Debug.Log(stateName);
-        switch (stateName)
-        {
-            case "public":
-                HostManager.Instance.privateState = false;
-                startButton.interactable = true;
-                invalidPasswordImage.gameObject.SetActive(false);
-
-                return;
-            case "private":
-                HostManager.Instance.privateState = true;
-                startButton.interactable = false;
-                invalidPasswordImage.gameObject.SetActive(true);
-                return;
-        }
+        HostManager.Instance.privateState = state;
+        HostManager.Instance.joinCodeText.gameObject.SetActive(state);
     }
 
 

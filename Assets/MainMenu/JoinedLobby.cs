@@ -39,7 +39,7 @@ public class JoinedLobby : NetworkBehaviour
     private void ClientConnectedHandler(ulong clientId)
     {
         NetworkObject networkPlayerUI = Instantiate(localPlayerUI).GetComponent<NetworkObject>();
-        networkPlayerUI.SpawnAsPlayerObject(clientId, true);
+        networkPlayerUI.SpawnWithOwnership(clientId, true);
         networkPlayerUI.TrySetParent(localUi.transform, false);
     }
 

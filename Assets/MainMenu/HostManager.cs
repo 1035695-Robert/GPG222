@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -14,13 +15,13 @@ using Random = UnityEngine.Random;
 
 
 public class HostManager : NetworkBehaviour
-{ 
+{
     private CreateLobbyOptions _createLobbyOptions = new CreateLobbyOptions();
 
-   
+
     [SerializeField] private string joinCode;
-    
-    [SerializeField]public string lobbyId;
+    public TextMeshProUGUI joinCodeText;
+    [SerializeField] public string lobbyId;
 
     public string lobbyName;
     public int maxConnections;
@@ -55,7 +56,6 @@ public class HostManager : NetworkBehaviour
             throw;
         }
 
-        Debug.Log($"server: {allocation.ConnectionData[0]}{allocation.ConnectionData[1]}");
         Debug.Log($"server: {allocation.AllocationId}");
 
         try
@@ -72,6 +72,7 @@ public class HostManager : NetworkBehaviour
 
         await CreateLobby();
         
+        
         NetworkManager.Singleton.StartHost();
     }
 
@@ -83,7 +84,7 @@ public class HostManager : NetworkBehaviour
             _createLobbyOptions.IsPrivate = privateState;
             if (privateState == true)
             {
-                _createLobbyOptions.Password = passwordText;
+                joinCodeText.text = "Code: " + joinCode;
             }
 
             // Very spaced out creation of custom data for the lobby. In this the relay code (but could be lobby name, player count, map name etc)
@@ -101,15 +102,9 @@ public class HostManager : NetworkBehaviour
             lobbyId = lobby.Id;
 
 
-            if (lobby != null)
-            {
-                Debug.Log("CREATED LOBBY : " + lobby.Name);
-            }
-
+            Debug.Log("CREATED LOBBY : " + lobby.Name);
             // Heartbeat the lobby every 15 seconds.
-
-            if (lobby != null)
-                StartCoroutine(HeartbeatLobbyCoroutine(15));
+            StartCoroutine(HeartbeatLobbyCoroutine(15));
         }
         catch (LobbyServiceException e)
         {
@@ -127,5 +122,4 @@ public class HostManager : NetworkBehaviour
             yield return delay;
         }
     }
-
 }

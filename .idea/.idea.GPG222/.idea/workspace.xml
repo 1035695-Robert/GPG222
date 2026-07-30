@@ -74,61 +74,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="7.327375536079451E-197" />
-      <entry key="S2" value="1.5258080201957798E-49" />
-      <entry key="S5" value="4.500983880247979E-20" />
-      <entry key="S10" value="2.99950758942096E-10" />
-      <entry key="S30" value="0.0010625358220970656" />
-      <entry key="S60" value="0.046098148987303036" />
-      <entry key="M2" value="0.3036406032319149" />
-      <entry key="M5" value="0.9963199777276388" />
-      <entry key="M10" value="3.382411990875054" />
-      <entry key="M15" value="9.268904256529426" />
-      <entry key="M30" value="40.47267505401868" />
-      <entry key="H1" value="125.04280416012105" />
-      <entry key="H2" value="325.4479601819715" />
-      <entry key="H4" value="714.6186729616766" />
-      <entry key="D1" value="2277.4002004190925" />
-      <entry key="W1" value="3067.328822357607" />
+      <entry key="MS100" value="1.002421304101453" />
+      <entry key="MS500" value="1.3017880197239038" />
+      <entry key="S2" value="2.2653097823499477" />
+      <entry key="S5" value="4.037897974884694" />
+      <entry key="S10" value="5.788657131633817" />
+      <entry key="S30" value="8.117789654469936" />
+      <entry key="S60" value="9.278176643047086" />
+      <entry key="M2" value="11.369653053394087" />
+      <entry key="M5" value="16.178131401378728" />
+      <entry key="M10" value="19.846722415807218" />
+      <entry key="M15" value="22.449528331744244" />
+      <entry key="M30" value="37.008800442090156" />
+      <entry key="H1" value="93.55291531611044" />
+      <entry key="H2" value="257.85848735319775" />
+      <entry key="H4" value="626.1665915445448" />
+      <entry key="D1" value="2299.370846937947" />
+      <entry key="W1" value="3198.0403048126263" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0" />
-      <entry key="S60" value="1.000000010143464" />
-      <entry key="M2" value="1.0001066263956704" />
-      <entry key="M5" value="1.0481223521145204" />
-      <entry key="M10" value="1.829339100284435" />
-      <entry key="M15" value="3.7969692366727874" />
-      <entry key="M30" value="14.079203002536193" />
-      <entry key="H1" value="40.27987340782141" />
-      <entry key="H2" value="96.1328349268842" />
-      <entry key="H4" value="197.12041252032895" />
-      <entry key="D1" value="605.2719901730051" />
-      <entry key="W1" value="815.0917368217881" />
+      <entry key="MS100" value="6.546031131942876E-47" />
+      <entry key="MS500" value="5.909197717425081E-10" />
+      <entry key="S2" value="0.006923160281184444" />
+      <entry key="S5" value="0.2317527452443844" />
+      <entry key="S10" value="0.8081405976841235" />
+      <entry key="S30" value="1.9230576517096292" />
+      <entry key="S60" value="2.459014023116693" />
+      <entry key="M2" value="3.3146115104962597" />
+      <entry key="M5" value="5.52974181627981" />
+      <entry key="M10" value="7.2680198287584545" />
+      <entry key="M15" value="8.261413791990972" />
+      <entry key="M30" value="12.287248945297714" />
+      <entry key="H1" value="27.899820575502027" />
+      <entry key="H2" value="73.27305795490923" />
+      <entry key="H4" value="170.32401568932917" />
+      <entry key="D1" value="608.6807574137626" />
+      <entry key="W1" value="847.149248893493" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.1987813706606171E-6" />
-      <entry key="MS500" value="0.06542564262341098" />
-      <entry key="S2" value="0.5057512900958415" />
-      <entry key="S5" value="0.7613332541866951" />
-      <entry key="S10" value="0.8725441276431832" />
-      <entry key="S30" value="0.9566148500494387" />
-      <entry key="S60" value="1.023247210605691" />
-      <entry key="M2" value="1.2911824982630988" />
-      <entry key="M5" value="2.0379114200477715" />
-      <entry key="M10" value="5.203325178975996" />
-      <entry key="M15" value="13.051981156522356" />
-      <entry key="M30" value="54.5246344486246" />
-      <entry key="H1" value="165.28395181626456" />
-      <entry key="H2" value="421.53504479295367" />
-      <entry key="H4" value="911.6928215696056" />
-      <entry key="D1" value="2882.649077449332" />
-      <entry key="W1" value="3882.416117139744" />
+      <entry key="MS100" value="0.29320873978284906" />
+      <entry key="MS500" value="0.8032849409531199" />
+      <entry key="S2" value="1.8203431665357108" />
+      <entry key="S5" value="3.9346522033919538" />
+      <entry key="S10" value="6.307297003057449" />
+      <entry key="S30" value="9.864646239626241" />
+      <entry key="S60" value="11.628868219913072" />
+      <entry key="M2" value="14.614166359518352" />
+      <entry key="M5" value="21.664090655973165" />
+      <entry key="M10" value="27.086619560915636" />
+      <entry key="M15" value="30.68946278488298" />
+      <entry key="M30" value="49.2784107959255" />
+      <entry key="H1" value="121.42951702792229" />
+      <entry key="H2" value="331.09868930347267" />
+      <entry key="H4" value="796.4516549969902" />
+      <entry key="D1" value="2908.0285146146452" />
+      <entry key="W1" value="4045.1849590351035" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -169,6 +169,16 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Builds\GPG222.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\1035695\Documents\Builds" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.72f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\Robert Andren\Documents\.git\GPG222&quot; -debugCodeOptimization" />
@@ -287,6 +297,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/Http/ResponseHandler.cs</url>
+          <line>112</line>
+          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Library\PackageCache\com.unity.services.multiplayer@1c7846287c66\Runtime\Lobbies\Http\ResponseHandler.cs" containingFunctionPresentation="Method 'HandleAsyncResponse'">
+            <startOffsets>
+              <option value="4426" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4427" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/MainMenu/HostManager.cs</url>
+          <line>112</line>
+          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Assets\MainMenu\HostManager.cs" containingFunctionPresentation="Method 'CreateLobby'">
+            <startOffsets>
+              <option value="3165" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3171" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

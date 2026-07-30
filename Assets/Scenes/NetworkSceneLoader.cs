@@ -60,7 +60,7 @@ public class NetworkSceneLoader : NetworkBehaviour
 
     
     [Rpc(SendTo.Server)]
-    private void ButtonPressed_Rpc(string sceneName)
+    public void ButtonPressed_Rpc(string sceneName)
     {
         if (_selectedScene.ContainsKey(sceneName))
         {
