@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 162571125}
   - component: {fileID: 162571124}
   m_Layer: 5
-  m_Name: LobbiesBackground
+  m_Name: LobbiesList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3213,7 +3213,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -5276,18 +5276,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5716057140847533471}
-        m_TargetAssemblyTypeName: MainMenuDisplay, Assembly-CSharp
-        m_MethodName: StartHost
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuDisplay, Assembly-CSharp
         m_MethodName: 
@@ -6484,18 +6472,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9099105376661903536}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1736274941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6683,6 +6659,7 @@ GameObject:
   - component: {fileID: 1824585771}
   - component: {fileID: 1824585770}
   - component: {fileID: 1824585769}
+  - component: {fileID: 1824585773}
   m_Layer: 0
   m_Name: 'Network Manager '
   m_TagString: Untagged
@@ -6704,7 +6681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 3671975894027075659
+    rid: 3457645912118788178
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -6714,7 +6691,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 3671975894027075659
+    - rid: 3457645912118788178
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None
@@ -6812,6 +6789,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1824585773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824585768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf4e0226c8734c4da8f9f843f24ea0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1884488986
 GameObject:
   m_ObjectHideFlags: 0
@@ -6999,7 +6988,7 @@ GameObject:
   - component: {fileID: 1938843560}
   - component: {fileID: 1938843559}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ListScroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7503,7 +7492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  joinCode: 
+  joinRelayCode: 
+  lobbyCode: 
   joinCodeText: {fileID: 1285140051}
   lobbyId: 
   lobbyName: Level 1
@@ -7805,8 +7795,8 @@ RectTransform:
   m_Children:
   - {fileID: 8475140616012865616}
   - {fileID: 2052462854}
-  - {fileID: 5475942368704206858}
   - {fileID: 1476934415}
+  - {fileID: 5475942368704206858}
   m_Father: {fileID: 3443572274275757497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7906,7 +7896,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2465810308772105112}
   m_OnClick:
     m_PersistentCalls:
@@ -8074,6 +8064,7 @@ GameObject:
   - component: {fileID: 337574838941152469}
   - component: {fileID: 5716057140847533472}
   - component: {fileID: 5716057140847533473}
+  - component: {fileID: 5716057140847533474}
   m_Layer: 0
   m_Name: Lobby Manager
   m_TagString: Untagged
@@ -8121,6 +8112,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &5716057140847533474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716057140847533470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41441d1c25434db428bcd4b410a6e11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _localPlayerID: 
+  _currentLobbyId: 
 --- !u!114 &5996269707648707134
 MonoBehaviour:
   m_ObjectHideFlags: 0

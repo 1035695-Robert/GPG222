@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Netcode;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 
 public class NetworkSceneLoader : NetworkBehaviour
@@ -48,21 +46,11 @@ public class NetworkSceneLoader : NetworkBehaviour
             throw; 
         }
     }
-
-    public void OnLevelSelection(string sceneName)
-    {
-        if (IsClient)
-        {
-            Debug.Log("client");
-            ButtonPressed_Rpc(sceneName);
-        }
-    }
-
     
     [Rpc(SendTo.Server)]
     public void ButtonPressed_Rpc(string sceneName)
     {
-        if (_selectedScene.ContainsKey(sceneName))
+        if (!_selectedScene.TryAdd(sceneName, 1))
         {
             _selectedScene[sceneName]++;
             Debug.Log(_selectedScene.Count);
@@ -73,11 +61,7 @@ public class NetworkSceneLoader : NetworkBehaviour
                 
             }
         }
-        else
-        {
-            _selectedScene.Add(sceneName, 1);
-            
-        }
+
         foreach (KeyValuePair<string, int> entry in _selectedScene)
         {
             Debug.Log($"Scene {entry.Key}: {entry.Value}//{_lobby.MaxPlayers}");

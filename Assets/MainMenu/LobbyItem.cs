@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
@@ -19,8 +18,9 @@ public class LobbyItem : MonoBehaviour
         LobbyPlayerName.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
     }
 
-    public void JoinLobby()
+    public async void JoinLobby()
     {
-        lobbiesList.JoinAsync(lobby);
+        await lobbiesList.JoinAsync(lobby);
+        transform.root.Find("LobbiesList").gameObject.SetActive(false);
     }
 }

@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GameHub.unity
     guid: ba2ece9db79ffe246bcde7738945113d
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+    path: Assets/Scenes/level 2.unity
     guid: 17f2f27b18239c749995156d822c1bd4
   - enabled: 1
     path: Assets/Scenes/Level 1.unity

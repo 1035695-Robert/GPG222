@@ -19,7 +19,9 @@ public class HostManager : NetworkBehaviour
     private CreateLobbyOptions _createLobbyOptions = new CreateLobbyOptions();
 
 
-    [SerializeField] private string joinCode;
+    [SerializeField] private string joinRelayCode;
+
+    [SerializeField] private string lobbyCode;
     public TextMeshProUGUI joinCodeText;
     [SerializeField] public string lobbyId;
 
@@ -42,7 +44,7 @@ public class HostManager : NetworkBehaviour
         }
     }
 
-    public async void StartHost()
+    public async Task StartHost()
     {
         Allocation allocation;
 
@@ -60,7 +62,7 @@ public class HostManager : NetworkBehaviour
 
         try
         {
-            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            joinRelayCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
         }
         catch (Exception e)
         {
@@ -71,8 +73,8 @@ public class HostManager : NetworkBehaviour
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(allocation.ToRelayServerData("udp"));
 
         await CreateLobby();
-        
-        
+
+
         NetworkManager.Singleton.StartHost();
     }
 
@@ -82,10 +84,7 @@ public class HostManager : NetworkBehaviour
         try
         {
             _createLobbyOptions.IsPrivate = privateState;
-            if (privateState == true)
-            {
-                joinCodeText.text = "Code: " + joinCode;
-            }
+          
 
             // Very spaced out creation of custom data for the lobby. In this the relay code (but could be lobby name, player count, map name etc)
             _createLobbyOptions.Data = new Dictionary<string, DataObject>()
@@ -93,14 +92,19 @@ public class HostManager : NetworkBehaviour
                 {
                     "JoinCode", new DataObject(
                         visibility: DataObject.VisibilityOptions.Member,
-                        value: joinCode
+                        value: joinRelayCode
                     )
                 }
             };
 
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxConnections, _createLobbyOptions);
             lobbyId = lobby.Id;
-
+            lobbyCode = lobby.LobbyCode;
+            if (privateState == true)
+            {
+                joinCodeText.text = "Code: " + lobbyCode;
+            }
+            LobbyDisconnectionManager.Instance.SetLobbyID(lobbyId);
 
             Debug.Log("CREATED LOBBY : " + lobby.Name);
             // Heartbeat the lobby every 15 seconds.
@@ -114,12 +118,13 @@ public class HostManager : NetworkBehaviour
     }
 
     IEnumerator HeartbeatLobbyCoroutine(float waitTimeSeconds)
-    {
+    { // Prevents the host from disconnection/timeOuts
         var delay = new WaitForSeconds(waitTimeSeconds);
         while (true)
-        {
+        { //sends signals to lobby to prevent from becoming inactive
             LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
             yield return delay;
         }
     }
+    
 }

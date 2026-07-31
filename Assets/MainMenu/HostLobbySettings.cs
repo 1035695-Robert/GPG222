@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,31 @@ public class HostLobbySettings : MonoBehaviour
         foreach (Button count in maxPlayers)
         {
             count.onClick.AddListener(() => ChangeMaxPlayerState(count.name));
+        }
+
+        startButton.onClick.AddListener(StartLobby);
+    }
+
+    private void StartLobby()
+    {
+        StartLobbyAsync();
+    }
+
+    private async void StartLobbyAsync()
+    {
+        try
+        {
+            startButton.interactable = false;
+            bool isActive = await MainMenuDisplay.Instance.StartHost();
+
+            if (isActive)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"couldn't start lobby{e.Message}");
         }
     }
 

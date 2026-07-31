@@ -11,11 +11,8 @@ public class PlayerColourManager : NetworkBehaviour
     public List<Color> playerBodyColour = new List<Color>();
     public List<Color> playerHandsColour = new List<Color>();
 
-
-    
-
     private void Awake()
-    {
+    {//helps to reference a singleton crossScenes when player joins.
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -30,13 +27,11 @@ public class PlayerColourManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
-    
-       
         NetworkManager.Singleton.OnClientConnectedCallback += ConnectedClient;
     }
 
     private void ConnectedClient(ulong id)
-    {
+    {//when new player joins creates a new lists to help reference across scene Loads.
         if (!connectedPlayers.Contains(id))
         {
             connectedPlayers.Add(id);
@@ -56,13 +51,14 @@ public class PlayerColourManager : NetworkBehaviour
                 if (connectedPlayers != null)
                 {
                     switch (part)
-                    {
+                    {//updates the players component that has just joined the scene 
+                        // this is also called to update the ui for the waiting lobby
                         case "body": 
                             playerColour.networkBodyColour.Value = playerBodyColour[(int)clientId];
                             return;
-                        case "hand":
-                            playerColour.networkHandsColour.Value = playerHandsColour[(int)clientId];
-                            return;
+                        // case "hand":
+                        //     playerColour.networkHandsColour.Value = playerHandsColour[(int)clientId];
+                        //     return;
                             
                     }
                     Debug.Log("NO player connected");
@@ -76,7 +72,7 @@ public class PlayerColourManager : NetworkBehaviour
     {
         string colourInput = colourName.ToLower();
         switch (colourInput)
-        {
+        {//checks the Colour name variable and updates the colour. 
             default:
                 SetColour(Color.gray, id, part); break;
             case "red":
@@ -103,13 +99,14 @@ public class PlayerColourManager : NetworkBehaviour
         if (connectedPlayers.Contains(playerID))
         {
             switch (part)
-            {
+            {// //updates the colour in the list allowing it to be called on during when scenes are loaded.
                 case "body":
                     playerBodyColour[(int)playerID] = colour;
                     break;
-                case "hand":
-                    playerHandsColour[(int)playerID] = colour;
-                    break;
+                // //originally had hands and body but hands were called at wrong timing
+                // case "hand":
+                //     playerHandsColour[(int)playerID] = colour;
+                //     break;
             }
         }
     }

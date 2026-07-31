@@ -23,8 +23,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/HostLobbySettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a27bb736f83a7da8a673184cc3a01a315fbfadaaae0bdde75d79cbec74353f/System.Runtime.Serialization.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/MainMenu/ColourSelection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NetworkManagerSingleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/ControlInputs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Player/PlayerInteractModel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -66,6 +68,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.transport@ed7eca02732f/Runtime/Relay/RelayServerData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.transport@ed7eca02732f/Runtime/UDPNetworkInterface.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@47e51ce530b9/Runtime/TMP/TMP_PackageResourceImporter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@47e51ce530b9/Runtime/UGUI/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -253,6 +256,7 @@
       <workItem from="1785112259934" duration="32347000" />
       <workItem from="1785278727353" duration="1029000" />
       <workItem from="1785280043070" duration="30567000" />
+      <workItem from="1785452150789" duration="29742000" />
     </task>
     <servers />
   </component>
@@ -286,43 +290,10 @@
           <option name="timeStamp" value="3" />
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/PlayerColourManager.cs</url>
-          <line>63</line>
-          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Assets\PlayerColourManager.cs" containingFunctionPresentation="Method 'SetColourOnSceneLoad'">
-            <startOffsets>
-              <option value="1846" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1919" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.multiplayer@1c7846287c66/Runtime/Lobbies/Http/ResponseHandler.cs</url>
           <line>112</line>
-          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Library\PackageCache\com.unity.services.multiplayer@1c7846287c66\Runtime\Lobbies\Http\ResponseHandler.cs" containingFunctionPresentation="Method 'HandleAsyncResponse'">
-            <startOffsets>
-              <option value="4426" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4427" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Library\PackageCache\com.unity.services.multiplayer@1c7846287c66\Runtime\Lobbies\Http\ResponseHandler.cs" containingFunctionPresentation="Method 'HandleAsyncResponse'" />
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/MainMenu/HostManager.cs</url>
-          <line>112</line>
-          <properties documentPath="C:\Users\1035695\Documents\.git\GPG222\Assets\MainMenu\HostManager.cs" containingFunctionPresentation="Method 'CreateLobby'">
-            <startOffsets>
-              <option value="3165" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3171" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
