@@ -80,7 +80,7 @@ public class JoinedPlayer : NetworkBehaviour
         displayScreen.color = newValue;
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
     private void BodyColour_Rpc(string colour)
     {
         //sends signal to update the NetworkVariable located in PlayerColourModel
