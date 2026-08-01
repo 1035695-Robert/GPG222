@@ -47,7 +47,6 @@ public class HostManager : NetworkBehaviour
     public async Task StartHost()
     {
         Allocation allocation;
-
         try
         {
             allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
@@ -84,9 +83,6 @@ public class HostManager : NetworkBehaviour
         try
         {
             _createLobbyOptions.IsPrivate = privateState;
-          
-
-            // Very spaced out creation of custom data for the lobby. In this the relay code (but could be lobby name, player count, map name etc)
             _createLobbyOptions.Data = new Dictionary<string, DataObject>()
             {
                 {

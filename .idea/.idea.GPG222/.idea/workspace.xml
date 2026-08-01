@@ -10,7 +10,22 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fff51e56-c322-4072-b316-6dbe8e665af4" name="Changes" comment="" />
+    <list default="true" id="fff51e56-c322-4072-b316-6dbe8e665af4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GPG222/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GPG222/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/ColourSelection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/ColourSelection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/HostManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/HostManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/LobbiesList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/LobbiesList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/PlayerColourSelectState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/PlayerColourSelectState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/WaitingLobby/JoinedPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/WaitingLobby/JoinedPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkManagerSingleton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkManagerSingleton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Player/PlayerColourModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player/PlayerColourModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerColourManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerColourManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -168,6 +183,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;unity.profiler.toolWindow.autoShown&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>

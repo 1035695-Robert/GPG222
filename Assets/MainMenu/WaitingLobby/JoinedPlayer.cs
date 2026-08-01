@@ -67,13 +67,13 @@ public class JoinedPlayer : NetworkBehaviour
         ChangeColourServer_Rpc(newValue);
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Reliable)]
     private void ChangeColourServer_Rpc(Color newValue)
     {
         ChangeColour_Rpc(newValue);
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.ClientsAndHost, Delivery = RpcDelivery.Reliable)]
     private void ChangeColour_Rpc(Color newValue)
     {
         //updates the display panel colour in waiting lobby for the Client

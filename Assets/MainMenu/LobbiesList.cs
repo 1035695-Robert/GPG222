@@ -83,7 +83,6 @@ public class LobbiesList : MonoBehaviour
             isJoining = false;
             throw;
         }
-
         isRefreshing = false;
     }
 }

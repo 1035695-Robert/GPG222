@@ -14,15 +14,15 @@ namespace Player
         [SerializeField] private Color BodyColour;
         [SerializeField] private Color HandsColour;
 
-        // public override void OnNetworkSpawn()
-        // {
-        //     networkBodyColour.OnValueChanged += Changed;
-        // }
-        //
-        // private void Changed(Color previousValue, Color newValue)
-        // {
-        //     BodyColour = newValue;
-        // }
+        public override void OnNetworkSpawn()
+        {
+            networkBodyColour.OnValueChanged += Changed;
+        }
+        
+        private void Changed(Color previousValue, Color newValue)
+        {
+            BodyColour = newValue;
+        }
         
     }
 }
