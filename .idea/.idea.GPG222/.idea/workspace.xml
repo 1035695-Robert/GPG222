@@ -10,22 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fff51e56-c322-4072-b316-6dbe8e665af4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GPG222/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GPG222/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/ColourSelection.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/ColourSelection.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/HostManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/HostManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/LobbiesList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/LobbiesList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/PlayerColourSelectState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/PlayerColourSelectState.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/WaitingLobby/JoinedPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/WaitingLobby/JoinedPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NetworkManagerSingleton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NetworkManagerSingleton.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/PlayerColourModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player/PlayerColourModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerColourManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerColourManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
-    </list>
+    <list default="true" id="fff51e56-c322-4072-b316-6dbe8e665af4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -273,6 +258,8 @@
       <workItem from="1785278727353" duration="1029000" />
       <workItem from="1785280043070" duration="30567000" />
       <workItem from="1785452150789" duration="29742000" />
+      <workItem from="1785819628725" duration="2612000" />
+      <workItem from="1785825548296" duration="3450000" />
     </task>
     <servers />
   </component>

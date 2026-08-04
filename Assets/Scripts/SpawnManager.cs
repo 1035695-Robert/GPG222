@@ -39,7 +39,6 @@ public class SpawnManager : NetworkBehaviour
     private void ConnectedClients(ulong clientID)
     {
         if (NetworkManager.Singleton.ConnectedClients[clientID].PlayerObject != null) return;
-
         SpawnPlayer_Rpc();
     }
 
