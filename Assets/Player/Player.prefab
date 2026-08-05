@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 5207462445088895524}
   - component: {fileID: 6378162120842473831}
   - component: {fileID: 3944160647352553333}
+  - component: {fileID: 5683733061778943272}
   - component: {fileID: 4163505942105488841}
   - component: {fileID: 7483156347187138122}
   - component: {fileID: -8826539354449078511}
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027749859248984794}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
@@ -335,6 +336,22 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 0
   SlerpPosition: 1
+--- !u!114 &5683733061778943272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027749859248984794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab3f01d6d7fc684eb3de27431823ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerTransform: {fileID: 5207462445088895524}
+  playerRigidbody: {fileID: 4163505942105488841}
+  delay: 0.01
 --- !u!54 &4163505942105488841
 Rigidbody:
   m_ObjectHideFlags: 0

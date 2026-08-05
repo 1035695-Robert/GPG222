@@ -1620,6 +1620,7 @@ GameObject:
   - component: {fileID: 1606598634}
   - component: {fileID: 1606598630}
   - component: {fileID: 1606598635}
+  - component: {fileID: 1606598636}
   m_Layer: 7
   m_Name: Shape
   m_TagString: Interactable
@@ -1695,6 +1696,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &1606598636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606598629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab3f01d6d7fc684eb3de27431823ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerTransform: {fileID: 1606598634}
+  playerRigidbody: {fileID: 1606598635}
+  delay: 0.01
 --- !u!1 &2012459859
 GameObject:
   m_ObjectHideFlags: 0

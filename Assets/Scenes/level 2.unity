@@ -738,6 +738,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6115770174436247601, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115770174436247601, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
       propertyPath: Interpolate
       value: 0
       objectReference: {fileID: 0}
@@ -753,13 +757,14 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6115770174436247601, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2032055363}
+      insertIndex: 2
+      addedObject: {fileID: 2032055364}
   m_SourcePrefab: {fileID: 100100000, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
 --- !u!1 &737298442
 GameObject:
@@ -1674,7 +1679,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1597323141541128855, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
   m_PrefabInstance: {fileID: 666700960}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2032055363
+--- !u!54 &2032055363 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8980329988831066071, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+  m_PrefabInstance: {fileID: 666700960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032055364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1683,14 +1693,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2032055362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ab3f01d6d7fc684eb3de27431823ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 0
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
+  playerTransform: {fileID: 2032055366}
+  playerRigidbody: {fileID: 2032055363}
+--- !u!4 &2032055366 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2188091233477726497, guid: 46e3293273aa1ea49b3eded8b67fb9e6, type: 3}
+  m_PrefabInstance: {fileID: 666700960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2125977431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1823,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2.220446e-16, z: 20}
-  m_LocalScale: {x: 2, y: 1, z: 1.04}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5411037440422230321}
